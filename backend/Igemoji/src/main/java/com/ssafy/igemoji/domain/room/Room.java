@@ -4,8 +4,12 @@ import com.ssafy.igemoji.domain.member.Member;
 import com.ssafy.igemoji.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Entity
@@ -17,11 +21,8 @@ public class Room extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "room_name")
-    private String name;
-
-    @Column(name = "max_num")
-    private Integer maxNum;
+    @Column(name = "room_title")
+    private String title;
 
     @Column(name = "room_status")
     private Boolean status;
@@ -35,7 +36,27 @@ public class Room extends BaseEntity {
     @Column(name = "question_num")
     private Integer questionNum;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @Column(name = "room_manager")
+    private Integer roomManager;
+
+    @OneToMany(mappedBy = "room")
+    private Set<Member> memberSet = new HashSet<>();
+
+    @Builder
+    public Room(
+            String title,
+            Boolean isOpen,
+            String password,
+            Integer questionNum
+    ){
+        this.title = title;
+        this.status = true;
+        this.isOpen = isOpen;
+        this.password = password;
+        this.questionNum = questionNum;
+    }
+
+    public void updateRoomManager(Integer memberId){
+        this.roomManager = memberId;
+    }
 }
