@@ -1,6 +1,7 @@
 package com.ssafy.igemoji.domain.member;
 
 import com.ssafy.igemoji.domain.level.Level;
+import com.ssafy.igemoji.domain.room.Room;
 import com.ssafy.igemoji.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -33,6 +34,17 @@ public class Member extends BaseEntity {
     private List<MemberFriend> friendList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="level_id")
-    private Level level;
+    @JoinColumn(name = "room_id")
+    private Room room;
+
+    public void saveRoom(Room room){
+        room.getMemberSet().add(this);
+        room.updateRoomManager(this.getId());
+        this.room = room;
+    }
+
+    public void enterRoom(Room room){
+        room.getMemberSet().add(this);
+        this.room = room;
+    }
 }
