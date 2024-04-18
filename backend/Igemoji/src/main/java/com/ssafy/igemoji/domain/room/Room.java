@@ -27,14 +27,8 @@ public class Room extends BaseEntity {
     @Column(name = "room_status")
     private Boolean status;
 
-    @Column(name = "is_open")
-    private Boolean isOpen;
-
     @Column(name = "room_password")
     private String password;
-
-    @Column(name = "question_num")
-    private Integer questionNum;
 
     @Column(name = "room_manager")
     private Integer roomManager;
@@ -45,15 +39,11 @@ public class Room extends BaseEntity {
     @Builder
     public Room(
             String title,
-            Boolean isOpen,
-            String password,
-            Integer questionNum
+            String password
     ){
         this.title = title;
         this.status = true;
-        this.isOpen = isOpen;
         this.password = password;
-        this.questionNum = questionNum;
     }
 
     public void updateRoomManager(Integer memberId){
