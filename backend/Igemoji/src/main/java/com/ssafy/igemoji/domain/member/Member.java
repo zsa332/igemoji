@@ -5,6 +5,7 @@ import com.ssafy.igemoji.domain.room.Room;
 import com.ssafy.igemoji.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,6 +31,9 @@ public class Member extends BaseEntity {
     @Column(name="member_exp")
     private Integer exp;
 
+    @Column(name = "oauth_id", unique = true)
+    private String oauthId;
+
     @OneToMany(mappedBy = "friend")
     private List<MemberFriend> friendList = new ArrayList<>();
 
@@ -45,6 +49,17 @@ public class Member extends BaseEntity {
 
     public void enterRoom(Room room){
         room.getMemberSet().add(this);
+        this.room = room;
+    }
+
+    @Builder
+    public Member(Integer id, String nickname, Integer score, Integer exp, String oauthId, List<MemberFriend> friendList, Room room) {
+        this.id = id;
+        this.nickname = nickname;
+        this.score = score;
+        this.exp = exp;
+        this.oauthId = oauthId;
+        this.friendList = friendList;
         this.room = room;
     }
 }

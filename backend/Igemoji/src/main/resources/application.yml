@@ -1,10 +1,12 @@
 spring:
+  # DATABASE
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
 
+  # JPA
   jpa:
     hibernate:
       ddl-auto: update
@@ -12,3 +14,24 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+
+# OAUTH2
+oauth2:
+  client:
+    registration:
+      kakao:
+        client-id: ${KAKAO_CLIENT_ID}
+        client-secret: ${KAKAO_CLIENT_SECRET}
+        authorization-grant-type: authorization_code
+        redirect-uri: http://localhost:8080/oauth2/kakao
+        client-authentication-method: POST
+    provider:
+      kakao:
+        authorization-uri: https://kauth.kakao.com/oauth/authorize
+        token-uri: https://kauth.kakao.com/oauth/token
+        user-info-uri: https://kapi.kakao.com/v2/user/me
+        user-name-attribute: id
+
+  # JWT Configuration
+jwt:
+  secret: ${JWT_SECRET}
