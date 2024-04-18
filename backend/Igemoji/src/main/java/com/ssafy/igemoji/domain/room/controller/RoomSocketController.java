@@ -22,16 +22,14 @@ public class RoomSocketController {
     private final SimpMessageSendingOperations simpMessageSendingOperations;
     private final RoomSocketService roomSocketService;
 
-    private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-
-    private ScheduledFuture<?> scheduledFuture;
-
+    /* 방 입장 */
     @MessageMapping("/enter")
     public void socketEnter(Integer roomId) {
         RoomSocketDto roomSocketDto = roomSocketService.getRoomInfo(roomId);
         simpMessageSendingOperations.convertAndSend("/topic/room/"+roomId , roomSocketDto);
     }
 
+    /* 채팅 소켓 */
     @MessageMapping("/chat")
     public void socketChat(ChatSocketDto chat) {
         simpMessageSendingOperations.convertAndSend("/topic/room/"+ chat.getRoomId(), chat);
