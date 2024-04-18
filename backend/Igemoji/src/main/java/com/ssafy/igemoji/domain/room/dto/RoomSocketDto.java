@@ -1,13 +1,10 @@
 package com.ssafy.igemoji.domain.room.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@NoArgsConstructor
+@Getter
 @Builder
 public class RoomSocketDto {
     private String title;

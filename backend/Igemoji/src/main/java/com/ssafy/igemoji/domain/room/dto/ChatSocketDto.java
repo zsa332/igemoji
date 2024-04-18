@@ -1,12 +1,13 @@
 package com.ssafy.igemoji.domain.room.dto;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@NoArgsConstructor
+@Getter
 public class ChatSocketDto {
     private String roomId;
     private String nickname;
