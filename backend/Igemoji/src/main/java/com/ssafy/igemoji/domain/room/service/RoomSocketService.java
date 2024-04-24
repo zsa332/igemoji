@@ -21,7 +21,7 @@ public class RoomSocketService {
 
         return RoomSocketDto.builder()
                 .title(room.getTitle())
-                .questionNum(room.getQuestionNum())
+//                .questionNum(room.getQuestionNum())
                 .participantNum(room.getMemberSet().size())
                 .build();
     }
