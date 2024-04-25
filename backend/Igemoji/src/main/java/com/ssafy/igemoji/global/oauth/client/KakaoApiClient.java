@@ -41,7 +41,6 @@ public class KakaoApiClient implements OAuthApiClient{
 
     @Override
     public String requestAccessToken(OAuthLoginRequest request) {
-        log.info("Redirect Uri :: {}", TOKEN_URI);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 

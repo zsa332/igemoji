@@ -20,5 +20,5 @@ public class Level {
     private Integer exp;
 
     @Column(name = "level_img")
-    private Integer img;
+    private String img;
 }
