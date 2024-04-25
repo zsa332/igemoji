@@ -34,6 +34,10 @@ public class Member extends BaseEntity {
     @Column(name = "oauth_id", unique = true)
     private String oauthId;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "level_id")
+    private Level level;
+
     @OneToMany(mappedBy = "friend")
     private List<MemberFriend> friendList = new ArrayList<>();
 
@@ -53,7 +57,7 @@ public class Member extends BaseEntity {
     }
 
     @Builder
-    public Member(Integer id, String nickname, Integer score, Integer exp, String oauthId, List<MemberFriend> friendList, Room room) {
+    public Member(Integer id, String nickname, Integer score, Integer exp, String oauthId, List<MemberFriend> friendList, Room room, Level level) {
         this.id = id;
         this.nickname = nickname;
         this.score = score;
@@ -61,5 +65,6 @@ public class Member extends BaseEntity {
         this.oauthId = oauthId;
         this.friendList = friendList;
         this.room = room;
+        this.level = level;
     }
 }

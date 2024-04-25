@@ -9,6 +9,6 @@ public class RoomRequestDto {
     private Integer memberId;
     private String title;
     private Integer questionNum;
-    private Boolean isOpen;
+    private Boolean isPublic;
     private String password;
 }
