@@ -1,9 +1,13 @@
 package com.ssafy.igemoji.domain.movie;
 
+import com.ssafy.igemoji.domain.member.MemberFriend;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -26,4 +30,7 @@ public class Movie {
 
     @Column(name = "movie_bgm")
     private String bgm;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Emoji> emojiList = new ArrayList<>();
 }
