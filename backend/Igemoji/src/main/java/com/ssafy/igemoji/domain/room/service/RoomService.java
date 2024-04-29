@@ -1,11 +1,14 @@
 package com.ssafy.igemoji.domain.room.service;
 
 import com.ssafy.igemoji.domain.member.Member;
+import com.ssafy.igemoji.domain.member.exception.MemberErrorCode;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.domain.room.Room;
 import com.ssafy.igemoji.domain.room.dto.RoomRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomResponseDto;
+import com.ssafy.igemoji.domain.room.exception.RoomErrorCode;
 import com.ssafy.igemoji.domain.room.repository.RoomRepository;
+import com.ssafy.igemoji.global.exception.CustomException;
 import com.sun.jdi.InternalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -26,31 +29,34 @@ public class RoomService {
 
     /* 방 생성 */
     @Transactional
-    public Integer save(RoomRequestDto requestDto){
-
+    public RoomResponseDto createRoom(RoomRequestDto requestDto){
         Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(
-                () -> new InternalException("예외 처리 예정")
+                () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
 
         Room room = Room.builder()
                 .title(requestDto.getTitle())
+                .isPublic(requestDto.getIsPublic())
                 .password(requestDto.getPassword())
+                .maxNum(requestDto.getMemberMaxNum())
+                .host(member)
                 .build();
 
         roomRepository.save(room);
-        member.saveRoom(room);
-        return room.getId();
+        return RoomResponseDto.toDto(room);
     }
+
+
 
     /* 방 입장 */
     @Transactional
     public void enterRoom(Integer roomId, Integer memberId){
         Room room = roomRepository.findById(roomId).orElseThrow(
-                () -> new InternalException("예외 처리 예정")
+                () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
         );
 
         Member member = memberRepository.findById(memberId).orElseThrow(
-                () -> new InternalException("예외 처리 예정")
+                () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
 
         member.enterRoom(room);
@@ -63,7 +69,7 @@ public class RoomService {
         Random random = new Random(System.currentTimeMillis());
 
         Member member = memberRepository.findById(memberId).orElseThrow(
-                () -> new InternalException("예외 처리 예정")
+                () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
 
         member.enterRoom(possibleRoomList.get(random.nextInt(possibleRoomList.size())));
@@ -76,17 +82,10 @@ public class RoomService {
         List<Room> roomList = roomRepository.findAllByRecent(pageRequest);
         List<RoomResponseDto> roomResponseDtoList = new ArrayList<>();
 
-        roomList.forEach(r -> roomResponseDtoList.add(
-                RoomResponseDto.builder()
-                        .title(r.getTitle())
-                        .status(r.getStatus())
-                        .memberNum(r.getMemberSet().size())
-                        .roomId(r.getId())
-                        .password(r.getPassword())
-                        .build()
-        ));
+        roomList.forEach(room -> roomResponseDtoList.add(RoomResponseDto.toDto(room)));
 
         return roomResponseDtoList;
+
     }
 
 }

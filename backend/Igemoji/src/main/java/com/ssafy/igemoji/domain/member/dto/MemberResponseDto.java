@@ -13,7 +13,6 @@ public class MemberResponseDto {
     private Integer score;
     private Integer exp;
     private Integer level;
-    private String level_img;
 
     public static MemberResponseDto toDto(Member member){
         return MemberResponseDto.builder()
@@ -21,8 +20,7 @@ public class MemberResponseDto {
                 .nickname(member.getNickname())
                 .score(member.getScore())
                 .exp(member.getExp())
-                .level(member.getLevel().getId())
-                .level_img(member.getLevel().getImg())
+                .level(member.getLevel())
                 .build();
     }
 }

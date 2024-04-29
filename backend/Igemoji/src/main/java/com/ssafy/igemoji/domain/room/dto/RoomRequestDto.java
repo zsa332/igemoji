@@ -8,7 +8,7 @@ import lombok.*;
 public class RoomRequestDto {
     private Integer memberId;
     private String title;
-    private Integer questionNum;
     private Boolean isPublic;
     private String password;
+    private Integer memberMaxNum;
 }

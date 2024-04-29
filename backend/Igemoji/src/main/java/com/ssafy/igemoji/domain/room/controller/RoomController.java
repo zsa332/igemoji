@@ -3,14 +3,14 @@ package com.ssafy.igemoji.domain.room.controller;
 import com.ssafy.igemoji.domain.room.dto.RoomRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomResponseDto;
 import com.ssafy.igemoji.domain.room.service.RoomService;
+import com.ssafy.igemoji.global.common.dto.ResponseFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/room")
 public class RoomController {
@@ -19,8 +19,9 @@ public class RoomController {
 
     /* 방 생성 */
     @PostMapping("/create")
-    public Integer createRoom(RoomRequestDto requestDto){
-        return roomService.save(requestDto);
+    public ResponseEntity<?> createRoom(@RequestBody RoomRequestDto requestDto){
+        System.out.println(requestDto);
+        return ResponseFactory.success("방 생성 완료", roomService.createRoom(requestDto));
     }
 
     /* 방 입장 */
