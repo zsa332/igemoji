@@ -2,7 +2,9 @@ package com.ssafy.igemoji.domain.member.service;
 
 import com.ssafy.igemoji.domain.member.Member;
 import com.ssafy.igemoji.domain.member.dto.NicknameRequestDto;
+import com.ssafy.igemoji.domain.member.exception.MemberErrorCode;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
+import com.ssafy.igemoji.global.exception.CustomException;
 import com.sun.jdi.InternalException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class MemberService {
     @Transactional
     public void updateNickname(NicknameRequestDto requestDto){
         Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(
-                () -> new InternalException("예외  처리 예정")
+                () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
 
         member.updateNickname(requestDto.getNickname());
