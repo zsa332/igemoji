@@ -53,7 +53,7 @@ public class Member extends BaseEntity {
     public void enterRoom(Room room){
         this.room = room;
     }
-    public void exitRoom(){
+    public void leaveRoom(){
         this.room = null;
     }
     public void updateNickname(String nickname){
