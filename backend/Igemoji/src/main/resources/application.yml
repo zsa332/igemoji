@@ -1,10 +1,17 @@
 spring:
-  # DATABASE
+  # MYSQL
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: ${MYSQL_USER}
     password: ${MYSQL_PASSWORD}
+
+  # Redis
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+
 
   # JPA
   jpa:
@@ -15,6 +22,12 @@ spring:
         format_sql: true
     show-sql: true
 
+logging:
+  level:
+    org:
+      springframework:
+        web:
+          socket: INFO
 # OAUTH2
 oauth2:
   client:
