@@ -8,9 +8,7 @@ import com.ssafy.igemoji.domain.room.dto.*;
 import com.ssafy.igemoji.domain.room.exception.RoomErrorCode;
 import com.ssafy.igemoji.domain.room.repository.RoomRepository;
 import com.ssafy.igemoji.global.exception.CustomException;
-import com.sun.jdi.InternalException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,7 +21,6 @@ public class RoomSocketService {
 
     private final RoomRepository roomRepository;
     private final MemberRepository memberRepository;
-    private final SimpMessageSendingOperations simpMessageSendingOperations;
     private static final Map<String, Integer> sessionMap = new HashMap<>();
 
     /* 방 입장 */
