@@ -9,9 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Entity
@@ -26,8 +24,11 @@ public class Room extends BaseEntity {
     @Column(name = "room_title")
     private String title;
 
-    @Column(name = "room_isPublic")
+    @Column(name = "is_public")
     private Boolean isPublic;
+
+    @Column(name = "is_progress")
+    private Boolean isProgress;
 
     @Column(name = "room_password")
     private String password;
