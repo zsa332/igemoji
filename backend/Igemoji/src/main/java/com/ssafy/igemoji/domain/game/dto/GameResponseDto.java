@@ -6,7 +6,7 @@ import lombok.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class GameTimerResponseDto {
+public class GameResponseDto {
     private Integer remainingTime;
     private GameStatus gameStatus;
     private MessageType messageType;
