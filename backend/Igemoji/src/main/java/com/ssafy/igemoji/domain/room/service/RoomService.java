@@ -77,8 +77,8 @@ public class RoomService {
     }
 
     /* 모든 방 조회 */
-    public List<RoomResponseDto> findAllRoom(int offset){
-        PageRequest pageRequest = PageRequest.of(offset, 10);
+    public List<RoomResponseDto> findAllRoom(int pageNum){
+        PageRequest pageRequest = PageRequest.of(pageNum, 10);
         List<Room> roomList = roomRepository.findAllByRecent(pageRequest);
         List<RoomResponseDto> roomResponseDtoList = new ArrayList<>();
 
