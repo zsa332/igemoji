@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 public class HintResponseDto extends GameResponseDto {
     private String hint;
 
-    public HintResponseDto(Integer remainingTime, GameStatus gameStatus, MessageType messageType, String hint) {
-        super(remainingTime, gameStatus, messageType);
+    public HintResponseDto(Integer remainingTime, GameStatus gameStatus, String hint) {
+        super(remainingTime, gameStatus);
         this.hint = hint;
     }
 }

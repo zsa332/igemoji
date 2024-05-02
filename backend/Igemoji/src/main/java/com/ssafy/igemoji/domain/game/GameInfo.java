@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class GameRemaining {
+public class GameInfo {
     private Integer remainingTime;
     private Integer remainingRound;
     private GameStatus gameStatus;

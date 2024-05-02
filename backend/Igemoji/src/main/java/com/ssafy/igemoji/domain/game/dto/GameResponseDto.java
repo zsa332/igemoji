@@ -9,5 +9,4 @@ import lombok.*;
 public class GameResponseDto {
     private Integer remainingTime;
     private GameStatus gameStatus;
-    private MessageType messageType;
 }

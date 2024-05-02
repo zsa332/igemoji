@@ -5,7 +5,6 @@ import com.ssafy.igemoji.global.oauth.dto.KakaoLoginRequest;
 import com.ssafy.igemoji.global.oauth.dto.LoginSuccessResponse;
 import com.ssafy.igemoji.global.oauth.service.OAuthLoginService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
