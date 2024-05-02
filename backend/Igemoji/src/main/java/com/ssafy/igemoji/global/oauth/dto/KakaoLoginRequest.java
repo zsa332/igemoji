@@ -1,13 +1,17 @@
 package com.ssafy.igemoji.global.oauth.dto;
 
 import com.ssafy.igemoji.global.oauth.dto.OAuthLoginRequest;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 @Getter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class KakaoLoginRequest implements OAuthLoginRequest {
     private String authorizationCode;
 
