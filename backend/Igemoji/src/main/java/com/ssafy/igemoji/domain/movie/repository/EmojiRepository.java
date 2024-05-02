@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface EmojiRepository extends JpaRepository<Integer, Emoji> {
+public interface EmojiRepository extends JpaRepository<Emoji, Integer> {
     @Query("SELECT e " +
             "FROM Emoji e " +
             "WHERE e.movie.id = :movieId " +
