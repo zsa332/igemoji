@@ -40,8 +40,6 @@ public class OAuthLoginService {
 
     /* 초기 로그인 member save */
     private Member newMember(OAuthInfoResponse oAuthInfoResponse) {
-        Level level = levelRepository.findById(1).orElseThrow(
-                () -> new InternalException("예외 처리 예정"));
         Member member = Member.builder()
                 .oauthId(oAuthInfoResponse.getOAuthProvider()+"_"+oAuthInfoResponse.getOAuthProviderId())
                 .level(1)

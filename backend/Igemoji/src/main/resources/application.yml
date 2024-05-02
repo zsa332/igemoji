@@ -36,7 +36,7 @@ oauth2:
         client-id: ${KAKAO_CLIENT_ID}
         client-secret: ${KAKAO_CLIENT_SECRET}
         authorization-grant-type: authorization_code
-        redirect-uri: http://localhost:8080/oauth2/kakao
+        redirect-uri: ${KAKAO_REDIRECT_URI}
         client-authentication-method: POST
     provider:
       kakao:
