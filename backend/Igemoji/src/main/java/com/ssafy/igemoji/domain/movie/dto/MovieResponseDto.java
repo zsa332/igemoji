@@ -1,6 +1,7 @@
 package com.ssafy.igemoji.domain.movie.dto;
 
 import com.ssafy.igemoji.domain.movie.Emoji;
+import com.ssafy.igemoji.domain.movie.FamousLine;
 import com.ssafy.igemoji.domain.movie.Movie;
 import lombok.*;
 
@@ -23,13 +24,16 @@ public class MovieResponseDto {
     public static MovieResponseDto toDto(Movie movie){
         List<Emoji> emojiList = movie.getEmojiList();
         Collections.shuffle(emojiList);
+
+        List<FamousLine> famousLineList = movie.getFamousLineList();
+        Collections.shuffle(famousLineList);
         return MovieResponseDto.builder()
                 .id(movie.getId())
                 .name(movie.getName())
                 .img(movie.getImg())
-                .line(movie.getLine())
+                .line(famousLineList.get(0).getLine())
                 .bgm(movie.getBgm())
-                .emoji(emojiList.get(0).getEmojiText())
+                .emoji(emojiList.isEmpty() ? "준비 중 입니다" : emojiList.get(0).getEmojiText())
                 .build();
     }
 

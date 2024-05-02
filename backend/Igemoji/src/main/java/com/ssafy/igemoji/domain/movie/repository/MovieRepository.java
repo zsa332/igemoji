@@ -11,6 +11,7 @@ public interface MovieRepository extends JpaRepository<Movie, Integer> {
     @Query("SELECT m " +
             "FROM Movie m " +
             "JOIN FETCH m.emojiList e " +
+            "JOIN FETCH m.famousLineList f " +
             "ORDER BY RAND()")
     List<Movie> getRandMovieList(Pageable pageable);
 }

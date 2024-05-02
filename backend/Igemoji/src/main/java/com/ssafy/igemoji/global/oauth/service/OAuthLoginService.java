@@ -45,7 +45,7 @@ public class OAuthLoginService {
         Member member = Member.builder()
                 .oauthId(oAuthInfoResponse.getOAuthProvider()+"_"+oAuthInfoResponse.getOAuthProviderId())
                 .level(1)
-                .score(0)
+                .rating(0)
                 .exp(0)
                 .build();
 
