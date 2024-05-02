@@ -10,7 +10,7 @@ import lombok.*;
 public class MemberResponseDto {
     private Integer memberId;
     private String nickname;
-    private Integer score;
+    private Integer rating;
     private Integer exp;
     private Integer level;
 
@@ -18,7 +18,7 @@ public class MemberResponseDto {
         return MemberResponseDto.builder()
                 .memberId(member.getId())
                 .nickname(member.getNickname())
-                .score(member.getScore())
+                .rating(member.getRating())
                 .exp(member.getExp())
                 .level(member.getLevel())
                 .build();

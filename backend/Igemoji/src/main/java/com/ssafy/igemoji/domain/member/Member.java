@@ -25,8 +25,8 @@ public class Member extends BaseEntity {
     @Column(name="member_nickname")
     private String nickname;
 
-    @Column(name="member_score")
-    private Integer score;
+    @Column(name="member_rating")
+    private Integer rating;
 
     @Column(name="member_exp")
     private Integer exp;
@@ -61,10 +61,10 @@ public class Member extends BaseEntity {
     }
 
     @Builder
-    public Member(Integer id, String nickname, Integer score, Integer exp, String oauthId, List<MemberFriend> friendList, Room room, Integer level) {
+    public Member(Integer id, String nickname, Integer rating, Integer exp, String oauthId, List<MemberFriend> friendList, Room room, Integer level) {
         this.id = id;
         this.nickname = nickname;
-        this.score = score;
+        this.rating = rating;
         this.exp = exp;
         this.oauthId = oauthId;
         this.friendList = friendList;
