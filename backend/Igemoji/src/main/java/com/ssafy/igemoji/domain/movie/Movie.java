@@ -25,12 +25,15 @@ public class Movie {
     @Column(name = "movie_img")
     private String img;
 
-    @Column(name = "movie_line")
-    private String line;
-
     @Column(name = "movie_bgm")
     private String bgm;
 
+    @Column(name = "movie_chosung")
+    private String chosung;
+
     @OneToMany(mappedBy = "movie")
     private List<Emoji> emojiList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie")
+    private List<FamousLine> famousLineList = new ArrayList<>();
 }
