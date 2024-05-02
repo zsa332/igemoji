@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface MovieRepository extends JpaRepository<Movie, Integer> {
-    @Query("SELECT m " +
+    @Query("SELECT DISTINCT m " +
             "FROM Movie m " +
             "JOIN FETCH m.emojiList e " +
             "JOIN FETCH m.famousLineList f " +
