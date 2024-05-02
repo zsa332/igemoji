@@ -18,23 +18,27 @@ public class MovieResponseDto {
     private String name;
     private String img;
     private String line;
-    private String bgm;
     private String emoji;
+    private String chosung;
+    private String correctMember;
 
     public static MovieResponseDto toDto(Movie movie){
-        List<Emoji> emojiList = movie.getEmojiList();
-        Collections.shuffle(emojiList);
-
-        List<FamousLine> famousLineList = movie.getFamousLineList();
-        Collections.shuffle(famousLineList);
         return MovieResponseDto.builder()
                 .id(movie.getId())
                 .name(movie.getName())
                 .img(movie.getImg())
-                .line(famousLineList.get(0).getLine())
-                .bgm(movie.getBgm())
-                .emoji(emojiList.isEmpty() ? "준비 중 입니다" : emojiList.get(0).getEmojiText())
+                .chosung(movie.getChosung())
                 .build();
+    }
+
+    public void setCorrectMember(String correctMember){
+        this.correctMember = correctMember;
+    }
+    public void setRandLine(String line){
+        this.line = line;
+    }
+    public void setRandEmoji(String emoji){
+        this.emoji = emoji;
     }
 
 }
