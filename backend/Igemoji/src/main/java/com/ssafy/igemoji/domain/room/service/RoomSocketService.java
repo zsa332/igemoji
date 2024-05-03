@@ -71,4 +71,16 @@ public class RoomSocketService {
 
         return RoomInfoDto.toDto(room, member.getNickname(), MessageType.LEAVE_ROOM);
     }
+
+    @Transactional
+    public RoomInfoDto updateQuestion(UpdateQuestionRequestDto updateQuestionRequestDto) {
+        Room room = roomRepository.findById(updateQuestionRequestDto.getRoomId()).orElseThrow(
+                () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
+        );
+
+        room.updateQuestionNum(updateQuestionRequestDto.getQuestionNum());
+        roomRepository.save(room);
+
+        return RoomInfoDto.toDto(room, "system", MessageType.CHANGE_SET);
+    }
 }

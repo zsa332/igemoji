@@ -39,6 +39,8 @@ public class RoomService {
                 .isPublic(requestDto.getIsPublic())
                 .password(requestDto.getPassword())
                 .maxNum(requestDto.getMemberMaxNum())
+                .genre("movie")
+                .questionNum(10)
                 .host(member)
                 .build();
 

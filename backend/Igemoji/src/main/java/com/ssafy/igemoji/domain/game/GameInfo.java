@@ -16,6 +16,7 @@ import java.util.List;
 public class GameInfo {
     private Integer remainingTime;
     private Integer remainingRound;
+    private Integer questionNum;
     private GameStatus gameStatus;
     private List<MovieResponseDto> movieList;
 

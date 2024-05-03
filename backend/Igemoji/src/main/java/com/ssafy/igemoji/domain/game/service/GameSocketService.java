@@ -46,7 +46,7 @@ public class GameSocketService {
             List<MovieResponseDto> movieList = movieService.getRandMovieList(requestDto.getQuestionNum());
             System.out.println(movieList);
             // 방 관리용 데이터 (게임 시간, 총 라운드, 게임 상태, 문제 list)
-            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, requestDto.getQuestionNum()-1, GameStatus.PROCEEDING, movieList));
+            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, requestDto.getQuestionNum()-1, requestDto.getQuestionNum(), GameStatus.PROCEEDING, movieList));
             // 스케줄러 생성
             ScheduledFuture<?> scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> sendRemainingTime(requestDto.getRoomId()), 1000);
             scheduledFutures.put(requestDto.getRoomId(), scheduledFuture);
@@ -80,16 +80,14 @@ public class GameSocketService {
     public void proceedingGame(GameInfo gameInfo, Integer roomId){
         int remainingTime = gameInfo.getRemainingTime();
         MovieResponseDto movie = gameInfo.getMovieList().get(gameInfo.getRemainingRound());
+        ProceedingResponseDto proceedingResponseDto = new ProceedingResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getEmoji());
 
-        GameResponseDto gameResponseDto = new GameResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS);
-        if(remainingTime == 60) // 문제 이모지 send
-            gameResponseDto = new StartResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getEmoji());
-        else if(remainingTime == 30) // 첫번째 힌트 명대사 send
-            gameResponseDto = new HintResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getLine());
-        else if(remainingTime == 15) // 두번째 힌트 초성 send
-            gameResponseDto = new HintResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getChosung());
+        if(remainingTime <= 30) // 첫번째 힌트 명대사 send
+            proceedingResponseDto.updateHint1(movie.getLine());
+        if(remainingTime == 15) // 두번째 힌트 초성 send
+            proceedingResponseDto.updateHint2(movie.getChosung());
 
-        sendMessage(gameResponseDto, roomId);
+        sendMessage(proceedingResponseDto, roomId);
 
         // 시간이 끝났을 때 라운드 종료
         if(gameInfo.getRemainingTime() <= 0) {
