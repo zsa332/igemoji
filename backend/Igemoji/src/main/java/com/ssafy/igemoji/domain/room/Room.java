@@ -36,6 +36,12 @@ public class Room extends BaseEntity {
     @Column(name = "room_max_num")
     private Integer maxNum;
 
+    @Column(name = "room_genre")
+    private String genre;
+
+    @Column(name = "question_num")
+    private Integer questionNum;
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member host;
@@ -43,16 +49,21 @@ public class Room extends BaseEntity {
     @OneToMany(mappedBy = "room")
     private List<Member> memberList = new ArrayList<>();
 
+    public void updateQuestionNum(Integer questionNum){
+        this.questionNum = questionNum;
+    }
     public void updateHost(Member member){
         this.host = member;
     }
 
     @Builder
-    public Room(String title, String password, Integer maxNum, Boolean isPublic, Member host){
+    public Room(String title, String password, Integer maxNum, Boolean isPublic, String genre, Integer questionNum,Member host){
         this.title = title;
         this.password = password;
         this.maxNum = maxNum;
         this.isPublic = isPublic;
+        this.genre = genre;
+        this.questionNum = questionNum;
         this.host = host;
     }
 

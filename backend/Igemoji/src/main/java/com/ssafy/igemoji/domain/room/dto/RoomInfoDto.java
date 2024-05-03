@@ -19,6 +19,8 @@ public class RoomInfoDto {
     private MessageType message;
     private String title;
     private Boolean isPublic;
+    private String genre;
+    private Integer questionNum;
     private Integer memberMaxNum;
     private Integer memberCurNum;
     private MemberResponseDto host;
@@ -31,9 +33,12 @@ public class RoomInfoDto {
                 .message(messageType)
                 .title(room.getTitle())
                 .isPublic(room.getIsPublic())
+                .genre(room.getGenre())
+                .questionNum(room.getQuestionNum())
                 .memberMaxNum(room.getMaxNum())
                 .memberCurNum(room.getMemberList().size())
                 .host(MemberResponseDto.toDto(room.getHost()))
+
                 .memberList(
                         room.getMemberList().stream()
                                 .map(MemberResponseDto::toDto)
