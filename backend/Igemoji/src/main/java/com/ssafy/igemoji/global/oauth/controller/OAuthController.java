@@ -26,4 +26,12 @@ public class OAuthController {
         return ResponseFactory.success(message, response);
     }
 
+    @GetMapping("/kakao/{code:.+}")
+    @Operation(summary = "카카오 로그인", description = "카카오 로그인 API")
+    public ResponseEntity<?> loginKakaoPath (@PathVariable String code) {
+        KakaoLoginRequest request = KakaoLoginRequest.builder().authorizationCode(code).build(); // 코드 입력
+        LoginSuccessResponse response = oAuthLoginService.login(request);
+        String message = response.getMemberInfo().getNickname() == null ? "닉네임 설정 필요" : "로그인 완료"; // 닉네임 확인
+        return ResponseFactory.success(message, response);
+    }
 }
