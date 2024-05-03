@@ -1,5 +1,6 @@
 package com.ssafy.igemoji.domain.game.dto;
 
+import com.ssafy.igemoji.domain.room.dto.MessageType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +14,8 @@ public class AnswerResponseDto extends GameResponseDto{
     private String img;
     private String correctMember;
 
-    public AnswerResponseDto(Integer remainingTime, GameStatus gameStatus, String name, String img, String correctMember) {
-        super(remainingTime, gameStatus);
+    public AnswerResponseDto(Integer remainingTime, GameStatus gameStatus, MessageType message, String name, String img, String correctMember) {
+        super(remainingTime, gameStatus, message);
         this.name = name;
         this.img = img;
         this.correctMember = correctMember;
