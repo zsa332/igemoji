@@ -22,7 +22,7 @@ public class OAuthController {
     public ResponseEntity<?> loginKakao(@RequestParam String code) {
         KakaoLoginRequest request = KakaoLoginRequest.builder().authorizationCode(code).build(); // 코드 입력
         LoginSuccessResponse response = oAuthLoginService.login(request);
-        String message = response.getMemberInfo().getNickname().isEmpty() ? "닉네임 설정 필요" : "로그인 완료"; // 닉네임 확인
+        String message = response.getMemberInfo().getNickname() == null ? "닉네임 설정 필요" : "로그인 완료"; // 닉네임 확인
         return ResponseFactory.success(message, response);
     }
 
