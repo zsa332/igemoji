@@ -4,6 +4,7 @@ import com.ssafy.igemoji.domain.game.GameInfo;
 import com.ssafy.igemoji.domain.game.dto.*;
 import com.ssafy.igemoji.domain.movie.dto.MovieResponseDto;
 import com.ssafy.igemoji.domain.movie.service.MovieService;
+import com.ssafy.igemoji.domain.room.dto.MessageType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.TaskScheduler;
@@ -80,13 +81,13 @@ public class GameSocketService {
         int remainingTime = gameInfo.getRemainingTime();
         MovieResponseDto movie = gameInfo.getMovieList().get(gameInfo.getRemainingRound());
 
-        GameResponseDto gameResponseDto = new GameResponseDto(remainingTime, GameStatus.PROCEEDING);
+        GameResponseDto gameResponseDto = new GameResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS);
         if(remainingTime == 60) // 문제 이모지 send
-            gameResponseDto = new StartResponseDto(remainingTime, GameStatus.PROCEEDING, movie.getEmoji());
+            gameResponseDto = new StartResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getEmoji());
         else if(remainingTime == 30) // 첫번째 힌트 명대사 send
-            gameResponseDto = new HintResponseDto(remainingTime, GameStatus.PROCEEDING, movie.getLine());
+            gameResponseDto = new HintResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getLine());
         else if(remainingTime == 15) // 두번째 힌트 초성 send
-            gameResponseDto = new HintResponseDto(remainingTime, GameStatus.PROCEEDING, movie.getChosung());
+            gameResponseDto = new HintResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getChosung());
 
         sendMessage(gameResponseDto, roomId);
 
@@ -101,10 +102,10 @@ public class GameSocketService {
     /* 정답 출력 */
     private void printAnswer(GameInfo gameInfo, Integer roomId) {
         int remainingTime = gameInfo.getRemainingTime();
-        GameResponseDto gameResponseDto = new GameResponseDto(remainingTime, GameStatus.PRINT_ANSWER);
+        GameResponseDto gameResponseDto = new GameResponseDto(remainingTime, GameStatus.PRINT_ANSWER, MessageType.GAME_PROGRESS);
         if(remainingTime == 3){ // 정답 출력 3초
             MovieResponseDto movie = gameInfo.getMovieList().get(gameInfo.getRemainingRound());
-            gameResponseDto = new AnswerResponseDto(remainingTime, GameStatus.PRINT_ANSWER, movie.getName(), movie.getImg(), movie.getCorrectMember());
+            gameResponseDto = new AnswerResponseDto(remainingTime, GameStatus.PRINT_ANSWER, MessageType.GAME_PROGRESS, movie.getName(), movie.getImg(), movie.getCorrectMember());
         }
         sendMessage(gameResponseDto, roomId);
         if(gameInfo.getRemainingTime() <= 0)
@@ -126,7 +127,7 @@ public class GameSocketService {
     }
 
     public void waitGame(GameInfo gameInfo, Integer roomId) {
-        sendMessage(new GameResponseDto(gameInfo.getRemainingTime(), GameStatus.WAITING), roomId);
+        sendMessage(new GameResponseDto(gameInfo.getRemainingTime(), GameStatus.WAITING, MessageType.GAME_PROGRESS), roomId);
         // 시간이 끝났을 때 라운드 종료
         if(gameInfo.getRemainingTime() <= 0){
             gameInfo.updateGameStatus(GameStatus.PROCEEDING);

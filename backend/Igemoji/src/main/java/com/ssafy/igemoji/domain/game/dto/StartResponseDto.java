@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 public class StartResponseDto extends GameResponseDto {
     private String emoji;
 
-    public StartResponseDto(Integer remainingTime, GameStatus gameStatus, String emoji) {
-        super(remainingTime, gameStatus);
+    public StartResponseDto(Integer remainingTime, GameStatus gameStatus, MessageType message, String emoji) {
+        super(remainingTime, gameStatus, message);
         this.emoji = emoji;
     }
 }
