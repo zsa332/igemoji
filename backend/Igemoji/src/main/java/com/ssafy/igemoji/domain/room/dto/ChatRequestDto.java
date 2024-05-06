@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
-public class ChatSocketDto {
-    private String roomId;
-    private String nickname;
+public class ChatRequestDto {
+    private Integer roomId;
+    private Integer memberId;
     private String content;
 }

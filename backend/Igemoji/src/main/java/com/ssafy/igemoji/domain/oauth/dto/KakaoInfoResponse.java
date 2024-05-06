@@ -1,4 +1,4 @@
-package com.ssafy.igemoji.global.oauth.dto;
+package com.ssafy.igemoji.domain.oauth.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

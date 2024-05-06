@@ -1,4 +1,4 @@
-package com.ssafy.igemoji.global.oauth.dto;
+package com.ssafy.igemoji.domain.oauth.dto;
 
 public interface OAuthInfoResponse {
     String getOAuthProvider();

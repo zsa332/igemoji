@@ -1,9 +1,9 @@
-package com.ssafy.igemoji.global.oauth.controller;
+package com.ssafy.igemoji.domain.oauth.controller;
 
 import com.ssafy.igemoji.global.common.dto.ResponseFactory;
-import com.ssafy.igemoji.global.oauth.dto.KakaoLoginRequest;
-import com.ssafy.igemoji.global.oauth.dto.LoginSuccessResponse;
-import com.ssafy.igemoji.global.oauth.service.OAuthLoginService;
+import com.ssafy.igemoji.domain.oauth.dto.KakaoLoginRequest;
+import com.ssafy.igemoji.domain.oauth.dto.LoginSuccessResponse;
+import com.ssafy.igemoji.domain.oauth.service.OAuthLoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;

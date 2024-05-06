@@ -2,19 +2,29 @@ package com.ssafy.igemoji.domain.game.service;
 
 import com.ssafy.igemoji.domain.game.GameInfo;
 import com.ssafy.igemoji.domain.game.dto.*;
+import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.domain.movie.dto.MovieResponseDto;
 import com.ssafy.igemoji.domain.movie.service.MovieService;
+import com.ssafy.igemoji.domain.room.Room;
+import com.ssafy.igemoji.domain.room.dto.ChatRequestDto;
+import com.ssafy.igemoji.domain.room.dto.ChatResponseDto;
 import com.ssafy.igemoji.domain.room.dto.MessageType;
+import com.ssafy.igemoji.domain.room.exception.RoomErrorCode;
+import com.ssafy.igemoji.domain.room.repository.RoomRepository;
+import com.ssafy.igemoji.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,6 +33,8 @@ public class GameSocketService {
     private final SimpMessagingTemplate messagingTemplate;
     private final TaskScheduler taskScheduler;
     private final MovieService movieService;
+    private final RoomRepository roomRepository;
+    private final MemberRepository memberRepository;
 
     private final Map<Integer, ScheduledFuture<?>> scheduledFutures = new ConcurrentHashMap<>();
     private final Map<Integer, GameInfo> gameInfoMap = new HashMap<>();
@@ -42,11 +54,21 @@ public class GameSocketService {
     public void startGame(StartRequestDto requestDto) {
         // 스케줄러 생성 및 문제 가져오기
         if (!scheduledFutures.containsKey(requestDto.getRoomId()) || scheduledFutures.get(requestDto.getRoomId()).isCancelled()) {
+            Room room = roomRepository.findByIdByFetch(requestDto.getRoomId()).orElseThrow(
+                    () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
+            );
             // 문제 랜덤으로 10개 뽑아오기
             List<MovieResponseDto> movieList = movieService.getRandMovieList(requestDto.getQuestionNum());
             System.out.println(movieList);
-            // 방 관리용 데이터 (게임 시간, 총 라운드, 게임 상태, 문제 list)
-            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, requestDto.getQuestionNum()-1, requestDto.getQuestionNum(), GameStatus.PROCEEDING, movieList));
+            // 참가자 뽑아오기
+            Map<Integer, PlayerResponseDto> playerMap  = new HashMap<>();
+            room.getMemberList().forEach(member -> {
+                PlayerResponseDto dto = PlayerResponseDto.toDto(member);
+                playerMap.put(dto.getMemberId(), dto);
+            });
+            System.out.println(playerMap);
+            // 방 관리용 데이터 (게임 시간, 총 라운드, 게임 상태, 문제 list, 참가자 list)
+            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, requestDto.getQuestionNum()-1, requestDto.getQuestionNum(), GameStatus.PROCEEDING, movieList, playerMap));
             // 스케줄러 생성
             ScheduledFuture<?> scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> sendRemainingTime(requestDto.getRoomId()), 1000);
             scheduledFutures.put(requestDto.getRoomId(), scheduledFuture);
@@ -84,7 +106,7 @@ public class GameSocketService {
 
         if(remainingTime <= 30) // 첫번째 힌트 명대사 send
             proceedingResponseDto.updateHint1(movie.getLine());
-        if(remainingTime == 15) // 두번째 힌트 초성 send
+        if(remainingTime <= 15) // 두번째 힌트 초성 send
             proceedingResponseDto.updateHint2(movie.getChosung());
 
         sendMessage(proceedingResponseDto, roomId);
@@ -98,7 +120,7 @@ public class GameSocketService {
     }
 
     /* 정답 출력 */
-    private void printAnswer(GameInfo gameInfo, Integer roomId) {
+    public void printAnswer(GameInfo gameInfo, Integer roomId) {
         int remainingTime = gameInfo.getRemainingTime();
         GameResponseDto gameResponseDto = new GameResponseDto(remainingTime, GameStatus.PRINT_ANSWER, MessageType.GAME_PROGRESS);
         if(remainingTime == 3){ // 정답 출력 3초
@@ -125,7 +147,7 @@ public class GameSocketService {
     }
 
     public void waitGame(GameInfo gameInfo, Integer roomId) {
-        sendMessage(new GameResponseDto(gameInfo.getRemainingTime(), GameStatus.WAITING, MessageType.GAME_PROGRESS), roomId);
+        sendMessage(new WaitResponseDto(gameInfo.getRemainingTime(), GameStatus.WAITING, MessageType.GAME_PROGRESS, new ArrayList<>(gameInfo.getPlayers().values())), roomId);
         // 시간이 끝났을 때 라운드 종료
         if(gameInfo.getRemainingTime() <= 0){
             gameInfo.updateGameStatus(GameStatus.PROCEEDING);
@@ -136,5 +158,26 @@ public class GameSocketService {
 
     public void sendMessage(Object data, Integer roomId){
         messagingTemplate.convertAndSend("/topic/room/" + roomId , data);
+    }
+
+    /* 게임 채팅 -> 정답일 경우 정답 처리 */
+    public void gameChat(ChatRequestDto chatRequestDto) {
+        GameInfo gameInfo = gameInfoMap.get(chatRequestDto.getRoomId());
+
+        ChatResponseDto responseDto = ChatResponseDto.builder()
+                .roomId(gameInfo.getRoomId())
+                .nickname(gameInfo.chatPlayer(chatRequestDto.getMemberId()))
+                .content(chatRequestDto.getContent())
+                .message(MessageType.GAME_CHAT)
+                .build();
+
+        sendMessage(responseDto, chatRequestDto.getRoomId()); // 채팅 전송
+
+        // 정답 체크
+        if(chatRequestDto.getContent().equals(gameInfo.currentAnswer())){
+            gameInfo.correctAnswer(gameInfo.chatPlayer(chatRequestDto.getMemberId()));
+            gameInfo.updateGameStatus(GameStatus.PRINT_ANSWER);
+            gameInfo.waitTime();
+        }
     }
 }

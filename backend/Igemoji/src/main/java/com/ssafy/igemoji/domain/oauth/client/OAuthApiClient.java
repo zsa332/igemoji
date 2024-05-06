@@ -1,7 +1,7 @@
-package com.ssafy.igemoji.global.oauth.client;
+package com.ssafy.igemoji.domain.oauth.client;
 
-import com.ssafy.igemoji.global.oauth.dto.OAuthInfoResponse;
-import com.ssafy.igemoji.global.oauth.dto.OAuthLoginRequest;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthInfoResponse;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthLoginRequest;
 
 public interface OAuthApiClient {
     String getOAuthProvider();

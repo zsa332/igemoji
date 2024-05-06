@@ -5,5 +5,6 @@ public enum MessageType {
     LEAVE_ROOM, // 방 퇴장
     GAME_PROGRESS, // 게임 진행
     CHANGE_SET, // 방 세팅 변경
-
+    GAME_CHAT,
+    ROOM_CHAT
 }
