@@ -11,8 +11,14 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class WaitScoreResponseDto {
+public class WaitScoreResponseDto extends ScoreResponseDto {
     private Integer currentRound;
     private Integer totalRound;
-    private List<PlayerResponseDto> playerList;
+
+    public WaitScoreResponseDto(MessageType message, GameStatus gameStatus, List<PlayerResponseDto> playerList, Integer currentRound, Integer totalRound) {
+        super(message, gameStatus, playerList);
+        this.currentRound = currentRound;
+        this.totalRound = totalRound;
+    }
+
 }
