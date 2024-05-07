@@ -15,15 +15,4 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "join fetch r.memberList " +
             "where r.id = :roomId")
     Optional<Room> findByIdByFetch(Integer roomId);
-
-    @Query("select r " +
-            "from Room r " +
-            "join fetch r.memberList m " +
-            "order by r.createDate desc")
-    List<Room> findAllByRecent(Pageable pageable);
-
-    @Query("select r " +
-            "from Room r " +
-            "where r.isPublic = true and r.password = null")
-    List<Room> findPossibleRoom();
 }
