@@ -1,15 +1,13 @@
-package com.ssafy.igemoji.global.oauth.service;
+package com.ssafy.igemoji.domain.oauth.service;
 
-import com.ssafy.igemoji.domain.level.Level;
 import com.ssafy.igemoji.domain.level.repository.LevelRepository;
 import com.ssafy.igemoji.domain.member.Member;
 import com.ssafy.igemoji.domain.member.dto.MemberResponseDto;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.global.jwt.AuthTokenGenerator;
-import com.ssafy.igemoji.global.oauth.dto.LoginSuccessResponse;
-import com.ssafy.igemoji.global.oauth.dto.OAuthInfoResponse;
-import com.ssafy.igemoji.global.oauth.dto.OAuthLoginRequest;
-import com.sun.jdi.InternalException;
+import com.ssafy.igemoji.domain.oauth.dto.LoginSuccessResponse;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthInfoResponse;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthLoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

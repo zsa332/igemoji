@@ -21,10 +21,16 @@ public class MemberService {
         Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(
                 () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
-
+        if(memberRepository.existsByNickname(requestDto.getNickname())){
+            throw new CustomException(MemberErrorCode.NICKNAME_DUPLICATE);
+        }
         member.updateNickname(requestDto.getNickname());
 
         memberRepository.save(member);
+    }
+
+    public boolean exitNickname(String nickname) {
+        return memberRepository.existsByNickname(nickname);
     }
 }
 

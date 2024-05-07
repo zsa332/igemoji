@@ -1,10 +1,10 @@
-package com.ssafy.igemoji.global.oauth.client;
+package com.ssafy.igemoji.domain.oauth.client;
 
 
+import com.ssafy.igemoji.domain.oauth.dto.OAuthLoginRequest;
 import com.ssafy.igemoji.global.jwt.KakaoToken;
-import com.ssafy.igemoji.global.oauth.dto.KakaoInfoResponse;
-import com.ssafy.igemoji.global.oauth.dto.OAuthInfoResponse;
-import com.ssafy.igemoji.global.oauth.dto.OAuthLoginRequest;
+import com.ssafy.igemoji.domain.oauth.dto.KakaoInfoResponse;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

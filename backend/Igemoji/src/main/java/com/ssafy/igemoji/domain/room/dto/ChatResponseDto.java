@@ -3,11 +3,12 @@ package com.ssafy.igemoji.domain.room.dto;
 import lombok.*;
 
 @Getter
-@ToString
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class RoomEnterRequestDto {
-    private Integer memberId;
+public class ChatResponseDto {
     private Integer roomId;
+    private String nickname;
+    private String content;
+    private MessageType message;
 }
-

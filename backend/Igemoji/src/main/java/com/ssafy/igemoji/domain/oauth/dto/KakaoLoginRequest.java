@@ -1,6 +1,5 @@
-package com.ssafy.igemoji.global.oauth.dto;
+package com.ssafy.igemoji.domain.oauth.dto;
 
-import com.ssafy.igemoji.global.oauth.dto.OAuthLoginRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,8 +1,8 @@
-package com.ssafy.igemoji.global.oauth.service;
+package com.ssafy.igemoji.domain.oauth.service;
 
-import com.ssafy.igemoji.global.oauth.client.OAuthApiClient;
-import com.ssafy.igemoji.global.oauth.dto.OAuthInfoResponse;
-import com.ssafy.igemoji.global.oauth.dto.OAuthLoginRequest;
+import com.ssafy.igemoji.domain.oauth.client.OAuthApiClient;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthInfoResponse;
+import com.ssafy.igemoji.domain.oauth.dto.OAuthLoginRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

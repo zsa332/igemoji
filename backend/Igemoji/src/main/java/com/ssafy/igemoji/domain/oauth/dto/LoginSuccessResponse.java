@@ -1,4 +1,4 @@
-package com.ssafy.igemoji.global.oauth.dto;
+package com.ssafy.igemoji.domain.oauth.dto;
 
 import com.ssafy.igemoji.domain.member.dto.MemberResponseDto;
 import com.ssafy.igemoji.global.jwt.AuthToken;

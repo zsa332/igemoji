@@ -1,6 +1,6 @@
 package com.ssafy.igemoji.domain.room.controller;
 
-import com.ssafy.igemoji.domain.room.dto.ChatSocketDto;
+import com.ssafy.igemoji.domain.room.dto.ChatRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomEnterRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomInfoDto;
 import com.ssafy.igemoji.domain.room.dto.UpdateQuestionRequestDto;
@@ -34,6 +34,7 @@ public class RoomSocketController {
     /* 방 입장 */
     @MessageMapping("/room/enter")
     public void socketEnter(RoomEnterRequestDto roomEnterRequestDto, SimpMessageHeaderAccessor headerAccessor) {
+        System.out.println(roomEnterRequestDto);
         simpMessageSendingOperations.convertAndSend("/topic/room/"+roomEnterRequestDto.getRoomId() , roomSocketService.enterRoom(roomEnterRequestDto, headerAccessor.getSessionId()));
     }
 
@@ -44,8 +45,8 @@ public class RoomSocketController {
     }
 
     /* 채팅 소켓 */
-    @MessageMapping("/chat")
-    public void socketChat(ChatSocketDto chat) {
-        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chat.getRoomId(), chat);
+    @MessageMapping("/room/chat")
+    public void socketChat(ChatRequestDto chatRequestDto) {
+        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chatRequestDto.getRoomId(), chatRequestDto);
     }
 }

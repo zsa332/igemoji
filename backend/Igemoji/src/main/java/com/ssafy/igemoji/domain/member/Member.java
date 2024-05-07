@@ -50,6 +50,11 @@ public class Member extends BaseEntity {
         this.room = room;
     }
 
+    public void addRating(int addRating) {
+        this.rating += addRating;
+    }
+    public void addExp(int exp) { this.exp += exp; }
+    public void levelUp() { this.level++; }
     public void enterRoom(Room room){
         this.room = room;
     }
