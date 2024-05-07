@@ -12,10 +12,15 @@ public class PlayerResponseDto {
     private String nickname;
     private Integer score;
     private Integer rating;
+    private Integer addRating;
     private Integer exp;
     private Integer level;
 
     public void increaseScore() { this.score++; }
+
+    public void updateAddRating(Integer score){
+        this.addRating = score;
+    }
 
     public static PlayerResponseDto toDto(Member member){
         return PlayerResponseDto.builder()
