@@ -100,7 +100,7 @@ public class GameSocketService {
         for(PlayerResponseDto player : playerList) player.updateAddRating(player.getScore() * 10);
 
         /* 게임 최종 스코어 및 rating 점수 send */
-        sendMessage(new WaitScoreResponseDto(gameInfo.getQuestionNum() - gameInfo.getRemainingRound(), gameInfo.getQuestionNum(), playerList), roomId);
+        sendMessage(new ScoreResponseDto( MessageType.GAME_PROGRESS, GameStatus.ROUND_END, playerList), roomId);
 
         stopGameScheduler(roomId);
 
@@ -158,7 +158,7 @@ public class GameSocketService {
             gameInfo.updateGameStatus(GameStatus.WAITING);
 
         /* 맴버 현재 스코어 send */
-        sendMessage(new WaitScoreResponseDto(gameInfo.getQuestionNum() - gameInfo.getRemainingRound(), gameInfo.getQuestionNum(), new ArrayList<>(gameInfo.getPlayers().values())), roomId);
+        sendMessage(new WaitScoreResponseDto(MessageType.GAME_PROGRESS, GameStatus.ROUND_END,new ArrayList<>(gameInfo.getPlayers().values()), gameInfo.getQuestionNum() - gameInfo.getRemainingRound(), gameInfo.getQuestionNum()), roomId);
 
         gameInfo.decreaseRound(); // 남은 라운드 감소
         gameInfo.waitTime(); // 남은 시간 = 대기 시간
