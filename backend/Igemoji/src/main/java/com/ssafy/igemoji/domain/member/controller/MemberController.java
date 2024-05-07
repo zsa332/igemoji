@@ -8,10 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,5 +26,13 @@ public class MemberController {
         memberService.updateNickname(requestDto);
         return ResponseFactory.success("닉네임 수정 완료");
     }
+
+    @GetMapping("/nickname/{nickname}")
+    @Operation(summary = "닉네임 중복 체크", description = "맴버 닉네임 중복 체크 API")
+    @Parameter(name = "nickname", description = "중복 체크 할 닉네임")
+    public ResponseEntity<?> exitNickname(@PathVariable String nickname){
+        return ResponseFactory.success("중복 체크 완료", memberService.exitNickname(nickname));
+    }
+
 }
 
