@@ -56,6 +56,9 @@ public class Room extends BaseEntity {
         this.host = member;
     }
 
+    public void runGame() { this.isProgress = true; }
+    public void stopGame() {this.isProgress = false; }
+
     @Builder
     public Room(String title, String password, Integer maxNum, Boolean isPublic, Boolean isProgress, String genre, Integer questionNum,Member host){
         this.title = title;

@@ -51,12 +51,15 @@ public class GameSocketService {
     }
 
     /* 게임 시작 세팅 */
+    @Transactional
     public void startGame(StartRequestDto requestDto) {
         // 스케줄러 생성 및 문제 가져오기
         if (!scheduledFutures.containsKey(requestDto.getRoomId()) || scheduledFutures.get(requestDto.getRoomId()).isCancelled()) {
             Room room = roomRepository.findByIdByFetch(requestDto.getRoomId()).orElseThrow(
                     () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
             );
+            room.runGame();
+            roomRepository.save(room);
             // 문제 랜덤으로 10개 뽑아오기
             List<MovieResponseDto> movieList = movieService.getRandMovieList(room.getQuestionNum());
             System.out.println(movieList);
@@ -112,6 +115,10 @@ public class GameSocketService {
             member.addExp(exp);
             memberRepository.save(member);
         }
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow( () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM) );
+        room.stopGame();
+        roomRepository.save(room);
     }
 
     /* 게임 진행 중 */
