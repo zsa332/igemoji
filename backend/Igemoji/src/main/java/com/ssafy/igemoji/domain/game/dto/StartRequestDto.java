@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class StartRequestDto {
     private Integer roomId;
-    private Integer senderId;
+    private Integer memberId;
 }

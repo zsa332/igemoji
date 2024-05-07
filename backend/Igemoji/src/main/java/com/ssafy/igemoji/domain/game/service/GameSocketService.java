@@ -102,7 +102,7 @@ public class GameSocketService {
         for(PlayerResponseDto player : playerList) player.updateAddRating(player.getScore() * 10);
 
         /* 게임 최종 스코어 및 rating 점수 send */
-        sendMessage(new ScoreResponseDto( MessageType.GAME_PROGRESS, GameStatus.ROUND_END, playerList), roomId);
+        sendMessage(new ScoreResponseDto( MessageType.GAME_PROGRESS, GameStatus.GAME_END, playerList), roomId);
 
         stopGameScheduler(roomId);
 
