@@ -13,6 +13,7 @@ public class RoomResponseDto {
     private Integer roomId;
     private String title;
     private Boolean isPublic;
+    private Boolean isProgress;
     private MemberResponseDto host;
     private Integer memberMaxNum;
     private Integer memberNum;
@@ -23,6 +24,7 @@ public class RoomResponseDto {
                 .roomId(room.getId())
                 .title(room.getTitle())
                 .isPublic(room.getIsPublic())
+                .isProgress(room.getIsProgress())
                 .host(MemberResponseDto.toDto(room.getHost()))
                 .memberMaxNum(room.getMaxNum())
                 .memberNum(room.getMemberList().size())
