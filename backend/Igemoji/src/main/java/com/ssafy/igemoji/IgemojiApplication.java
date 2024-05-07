@@ -10,12 +10,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableScheduling
 @EnableJpaAuditing
 @SpringBootApplication
-@OpenAPIDefinition(
-        servers = {
-                @Server(url="https://back.igemoji.store", description="Default Server url")
-        }
-)
-
 public class IgemojiApplication {
 
     public static void main(String[] args) {
