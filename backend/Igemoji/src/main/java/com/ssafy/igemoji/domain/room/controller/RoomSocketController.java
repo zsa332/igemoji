@@ -1,9 +1,6 @@
 package com.ssafy.igemoji.domain.room.controller;
 
-import com.ssafy.igemoji.domain.room.dto.ChatRequestDto;
-import com.ssafy.igemoji.domain.room.dto.RoomEnterRequestDto;
-import com.ssafy.igemoji.domain.room.dto.RoomInfoDto;
-import com.ssafy.igemoji.domain.room.dto.UpdateQuestionRequestDto;
+import com.ssafy.igemoji.domain.room.dto.*;
 import com.ssafy.igemoji.domain.room.service.RoomSocketService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +44,7 @@ public class RoomSocketController {
     /* 채팅 소켓 */
     @MessageMapping("/room/chat")
     public void socketChat(ChatRequestDto chatRequestDto) {
-        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chatRequestDto.getRoomId(), chatRequestDto);
+
+        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chatRequestDto.getRoomId(), roomSocketService.roomChat(chatRequestDto));
     }
 }
