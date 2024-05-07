@@ -7,7 +7,8 @@ public enum MemberErrorCode implements ErrorCode {
     NOT_FOUND_MEMBER("해당 회원을 찾을 수 없습니다","MEM_001",404),
     INVALID_ID_TOKEN("유효하지 않는 idToken 입니다","MEM_002",400),
     EXPIRED_ID_TOKEN("만료된 idToken 입니다","MEM_003",400),
-    NOT_SUPPORT_OAUTH_PROVIDER("지원하지 않는 OAuth 인증 방식입니다.","MEM_004",409);
+    NOT_SUPPORT_OAUTH_PROVIDER("지원하지 않는 OAuth 인증 방식입니다.","MEM_004",409),
+    NICKNAME_DUPLICATE("중복된 닉네임입니다.","MEM_005",409);
 
     private final String message;
     private final String errorCode;
