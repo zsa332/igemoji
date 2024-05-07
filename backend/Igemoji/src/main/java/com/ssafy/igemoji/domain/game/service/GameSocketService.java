@@ -2,6 +2,8 @@ package com.ssafy.igemoji.domain.game.service;
 
 import com.ssafy.igemoji.domain.game.GameInfo;
 import com.ssafy.igemoji.domain.game.dto.*;
+import com.ssafy.igemoji.domain.member.Member;
+import com.ssafy.igemoji.domain.member.exception.MemberErrorCode;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.domain.movie.dto.MovieResponseDto;
 import com.ssafy.igemoji.domain.movie.service.MovieService;
@@ -16,11 +18,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
 import java.util.function.Function;
@@ -92,10 +92,27 @@ public class GameSocketService {
         }
     }
 
+    @Transactional
     /* 게임 종료 */
-    private void endGame(GameInfo gameInfo, Integer roomId) {
+    public void endGame(GameInfo gameInfo, Integer roomId) {
+        List<PlayerResponseDto> playerList = new ArrayList<>(gameInfo.getPlayers().values());
+        Collections.sort(playerList, Comparator.comparingInt(PlayerResponseDto::getScore).reversed());
+        for(PlayerResponseDto player : playerList) player.updateAddRating(player.getScore() * 10);
+
         /* 게임 최종 스코어 및 rating 점수 send */
+        sendMessage(new WaitScoreResponseDto(gameInfo.getQuestionNum() - gameInfo.getRemainingRound(), gameInfo.getQuestionNum(), playerList), roomId);
+
         stopGameScheduler(roomId);
+
+        int exp = playerList.size();
+        for(PlayerResponseDto player : playerList){
+            player.updateAddRating(player.getScore() * 10);
+            Member member = memberRepository.findById(player.getMemberId())
+                    .orElseThrow( () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER));
+            member.addRating(player.getScore() * 10);
+            member.addExp(exp);
+            memberRepository.save(member);
+        }
     }
 
     /* 게임 진행 중 */
@@ -141,13 +158,14 @@ public class GameSocketService {
             gameInfo.updateGameStatus(GameStatus.WAITING);
 
         /* 맴버 현재 스코어 send */
+        sendMessage(new WaitScoreResponseDto(gameInfo.getQuestionNum() - gameInfo.getRemainingRound(), gameInfo.getQuestionNum(), new ArrayList<>(gameInfo.getPlayers().values())), roomId);
 
         gameInfo.decreaseRound(); // 남은 라운드 감소
         gameInfo.waitTime(); // 남은 시간 = 대기 시간
     }
 
     public void waitGame(GameInfo gameInfo, Integer roomId) {
-        sendMessage(new WaitResponseDto(gameInfo.getRemainingTime(), GameStatus.WAITING, MessageType.GAME_PROGRESS, new ArrayList<>(gameInfo.getPlayers().values())), roomId);
+        sendMessage(new GameResponseDto(gameInfo.getRemainingTime(), GameStatus.WAITING, MessageType.GAME_PROGRESS), roomId);
         // 시간이 끝났을 때 라운드 종료
         if(gameInfo.getRemainingTime() <= 0){
             gameInfo.updateGameStatus(GameStatus.PROCEEDING);
@@ -175,7 +193,8 @@ public class GameSocketService {
 
         // 정답 체크
         if(chatRequestDto.getContent().equals(gameInfo.currentAnswer())){
-            gameInfo.correctAnswer(gameInfo.chatPlayer(chatRequestDto.getMemberId()));
+            gameInfo.correctAnswer(gameInfo.chatPlayer(chatRequestDto.getMemberId())); // 문제 정답자 닉네임 입력
+            gameInfo.increasePlayerScore(chatRequestDto.getMemberId()); // 정답자 score 증가
             gameInfo.updateGameStatus(GameStatus.PRINT_ANSWER);
             gameInfo.waitTime();
         }
