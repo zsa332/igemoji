@@ -58,7 +58,7 @@ public class GameSocketService {
                     () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
             );
             // 문제 랜덤으로 10개 뽑아오기
-            List<MovieResponseDto> movieList = movieService.getRandMovieList(requestDto.getQuestionNum());
+            List<MovieResponseDto> movieList = movieService.getRandMovieList(room.getQuestionNum());
             System.out.println(movieList);
             // 참가자 뽑아오기
             Map<Integer, PlayerResponseDto> playerMap  = new HashMap<>();
@@ -66,9 +66,8 @@ public class GameSocketService {
                 PlayerResponseDto dto = PlayerResponseDto.toDto(member);
                 playerMap.put(dto.getMemberId(), dto);
             });
-            System.out.println(playerMap);
             // 방 관리용 데이터 (게임 시간, 총 라운드, 게임 상태, 문제 list, 참가자 list)
-            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, requestDto.getQuestionNum()-1, requestDto.getQuestionNum(), GameStatus.PROCEEDING, movieList, playerMap));
+            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, room.getQuestionNum() - 1, room.getQuestionNum(), GameStatus.PROCEEDING, movieList, playerMap));
             // 스케줄러 생성
             ScheduledFuture<?> scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> sendRemainingTime(requestDto.getRoomId()), 1000);
             scheduledFutures.put(requestDto.getRoomId(), scheduledFuture);
