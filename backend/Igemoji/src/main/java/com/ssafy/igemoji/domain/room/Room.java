@@ -57,11 +57,12 @@ public class Room extends BaseEntity {
     }
 
     @Builder
-    public Room(String title, String password, Integer maxNum, Boolean isPublic, String genre, Integer questionNum,Member host){
+    public Room(String title, String password, Integer maxNum, Boolean isPublic, Boolean isProgress, String genre, Integer questionNum,Member host){
         this.title = title;
         this.password = password;
         this.maxNum = maxNum;
         this.isPublic = isPublic;
+        this.isProgress = isProgress;
         this.genre = genre;
         this.questionNum = questionNum;
         this.host = host;
