@@ -51,14 +51,17 @@ public class GameSocketService {
     }
 
     /* 게임 시작 세팅 */
+    @Transactional
     public void startGame(StartRequestDto requestDto) {
         // 스케줄러 생성 및 문제 가져오기
         if (!scheduledFutures.containsKey(requestDto.getRoomId()) || scheduledFutures.get(requestDto.getRoomId()).isCancelled()) {
             Room room = roomRepository.findByIdByFetch(requestDto.getRoomId()).orElseThrow(
                     () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
             );
+            room.runGame();
+            roomRepository.save(room);
             // 문제 랜덤으로 10개 뽑아오기
-            List<MovieResponseDto> movieList = movieService.getRandMovieList(requestDto.getQuestionNum());
+            List<MovieResponseDto> movieList = movieService.getRandMovieList(room.getQuestionNum());
             System.out.println(movieList);
             // 참가자 뽑아오기
             Map<Integer, PlayerResponseDto> playerMap  = new HashMap<>();
@@ -66,9 +69,8 @@ public class GameSocketService {
                 PlayerResponseDto dto = PlayerResponseDto.toDto(member);
                 playerMap.put(dto.getMemberId(), dto);
             });
-            System.out.println(playerMap);
             // 방 관리용 데이터 (게임 시간, 총 라운드, 게임 상태, 문제 list, 참가자 list)
-            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, requestDto.getQuestionNum()-1, requestDto.getQuestionNum(), GameStatus.PROCEEDING, movieList, playerMap));
+            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, room.getQuestionNum() - 1, room.getQuestionNum(), GameStatus.PROCEEDING, movieList, playerMap));
             // 스케줄러 생성
             ScheduledFuture<?> scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> sendRemainingTime(requestDto.getRoomId()), 1000);
             scheduledFutures.put(requestDto.getRoomId(), scheduledFuture);
@@ -113,6 +115,10 @@ public class GameSocketService {
             member.addExp(exp);
             memberRepository.save(member);
         }
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow( () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM) );
+        room.stopGame();
+        roomRepository.save(room);
     }
 
     /* 게임 진행 중 */

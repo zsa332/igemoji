@@ -83,4 +83,17 @@ public class RoomSocketService {
 
         return RoomInfoDto.toDto(room, "system", MessageType.CHANGE_SET);
     }
+
+    public ChatResponseDto roomChat(ChatRequestDto chatRequestDto) {
+        Member member = memberRepository.findById(chatRequestDto.getMemberId()).orElseThrow(
+                () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
+        );
+
+        return ChatResponseDto.builder()
+                .roomId(chatRequestDto.getRoomId())
+                .message(MessageType.ROOM_CHAT)
+                .nickname(member.getNickname())
+                .content(chatRequestDto.getContent())
+                .build();
+    }
 }

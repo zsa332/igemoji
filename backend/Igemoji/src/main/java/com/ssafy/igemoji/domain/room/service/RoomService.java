@@ -35,6 +35,7 @@ public class RoomService {
         Room room = Room.builder()
                 .title(requestDto.getTitle())
                 .isPublic(requestDto.getIsPublic())
+                .isProgress(false)
                 .password(requestDto.getPassword())
                 .maxNum(requestDto.getMemberMaxNum())
                 .genre("movie")

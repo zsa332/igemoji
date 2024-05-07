@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 public class StartRequestDto {
     private Integer roomId;
     private Integer senderId;
-    private Integer questionNum;
-    private String genre;
 }
