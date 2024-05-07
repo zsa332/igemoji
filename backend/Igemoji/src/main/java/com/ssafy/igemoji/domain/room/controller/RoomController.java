@@ -30,21 +30,6 @@ public class RoomController {
         return ResponseFactory.success("방 생성 완료", roomService.createRoom(requestDto));
     }
 
-    /* 방 입장 */
-    @GetMapping("/enter")
-    @Operation(summary = "사라질 예정입니다.", description = "사라질 예정입니다.")
-    public void enterRoom(@RequestParam Integer roomId,
-                          @RequestParam Integer memberId){
-        roomService.enterRoom(roomId, memberId);
-    }
-
-    /* 빠른 입장 */
-    @GetMapping("/random")
-    @Operation(summary = "사라질 예정입니다.", description = "사라질 예정입니다.")
-    public void enterRoom(@RequestParam Integer memberId){
-        roomService.enterRandomRoom(memberId);
-    }
-
     /* 모든 방 조회 */
     @GetMapping("/list")
     @Operation(summary = "방 목록 조회", description = "각 페이지별 10개씩 반환됩니다.")
