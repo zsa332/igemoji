@@ -19,6 +19,7 @@ public class RoomInfoDto {
     private MessageType message;
     private String title;
     private Boolean isPublic;
+    private Boolean isProgress;
     private String genre;
     private Integer questionNum;
     private Integer memberMaxNum;
@@ -33,6 +34,7 @@ public class RoomInfoDto {
                 .message(messageType)
                 .title(room.getTitle())
                 .isPublic(room.getIsPublic())
+                .isProgress(room.getIsProgress())
                 .genre(room.getGenre())
                 .questionNum(room.getQuestionNum())
                 .memberMaxNum(room.getMaxNum())
