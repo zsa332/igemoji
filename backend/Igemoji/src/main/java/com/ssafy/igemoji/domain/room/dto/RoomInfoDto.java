@@ -26,9 +26,10 @@ public class RoomInfoDto {
     private Integer memberCurNum;
     private MemberResponseDto host;
     private List<MemberResponseDto> memberList;
+    private Integer senderId;
     private String senderNickname;
 
-    public static RoomInfoDto toDto(Room room, String senderNickname, MessageType messageType){
+    public static RoomInfoDto toDto(Room room, Integer senderId, String senderNickname, MessageType messageType){
         return RoomInfoDto.builder()
                 .roomId(room.getId())
                 .message(messageType)
@@ -46,6 +47,7 @@ public class RoomInfoDto {
                                 .map(MemberResponseDto::toDto)
                                 .collect(Collectors.toList())
                 )
+                .senderId(senderId)
                 .senderNickname(senderNickname)
                 .build();
     }
