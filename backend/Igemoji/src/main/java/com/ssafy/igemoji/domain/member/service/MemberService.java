@@ -37,7 +37,7 @@ public class MemberService {
                 () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
         Integer rank = memberRepository.getMemberRank(member.getRating());
-        MemberRankDto myRank = MemberRankDto.toDto(member, rank);
+        MemberRankDto myRank = MemberRankDto.toDto(member, rank + 1);
 
         List<Member> memberList = memberRepository.getTop10Members();
         List<MemberRankDto> memberRankDtoList = new ArrayList<>();
