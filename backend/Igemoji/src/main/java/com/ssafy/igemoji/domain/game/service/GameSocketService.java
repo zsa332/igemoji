@@ -7,7 +7,6 @@ import com.ssafy.igemoji.domain.member.exception.MemberErrorCode;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.domain.movie.dto.MovieResponseDto;
 import com.ssafy.igemoji.domain.movie.service.MovieService;
-import com.ssafy.igemoji.domain.ranking.service.RankingService;
 import com.ssafy.igemoji.domain.room.Room;
 import com.ssafy.igemoji.domain.room.dto.ChatRequestDto;
 import com.ssafy.igemoji.domain.room.dto.ChatResponseDto;
