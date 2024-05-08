@@ -7,6 +7,7 @@ import com.ssafy.igemoji.domain.member.exception.MemberErrorCode;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.domain.movie.dto.MovieResponseDto;
 import com.ssafy.igemoji.domain.movie.service.MovieService;
+import com.ssafy.igemoji.domain.ranking.service.RankingService;
 import com.ssafy.igemoji.domain.room.Room;
 import com.ssafy.igemoji.domain.room.dto.ChatRequestDto;
 import com.ssafy.igemoji.domain.room.dto.ChatResponseDto;
@@ -23,8 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,7 +69,7 @@ public class GameSocketService {
                 playerMap.put(dto.getMemberId(), dto);
             });
             // 방 관리용 데이터 (게임 시간, 총 라운드, 게임 상태, 문제 list, 참가자 list)
-            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(60, room.getQuestionNum() - 1, room.getQuestionNum(), GameStatus.PROCEEDING, movieList, playerMap));
+            gameInfoMap.put(requestDto.getRoomId(), new GameInfo(3, room.getQuestionNum(), room.getQuestionNum(), GameStatus.ROUND_END, movieList, playerMap));
             // 스케줄러 생성
             ScheduledFuture<?> scheduledFuture = taskScheduler.scheduleAtFixedRate(() -> sendRemainingTime(requestDto.getRoomId()), 1000);
             scheduledFutures.put(requestDto.getRoomId(), scheduledFuture);
@@ -198,7 +197,7 @@ public class GameSocketService {
         sendMessage(responseDto, chatRequestDto.getRoomId()); // 채팅 전송
 
         // 정답 체크
-        if(chatRequestDto.getContent().equals(gameInfo.currentAnswer())){
+        if(gameInfo.getGameStatus().equals(GameStatus.PROCEEDING) && chatRequestDto.getContent().equals(gameInfo.currentAnswer())){
             gameInfo.correctAnswer(gameInfo.chatPlayer(chatRequestDto.getMemberId())); // 문제 정답자 닉네임 입력
             gameInfo.increasePlayerScore(chatRequestDto.getMemberId()); // 정답자 score 증가
             gameInfo.updateGameStatus(GameStatus.PRINT_ANSWER);
