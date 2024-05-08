@@ -27,6 +27,14 @@ public class MemberController {
         return ResponseFactory.success("닉네임 수정 완료");
     }
 
+    @GetMapping("/rank/{memberId}")
+    @Operation(summary = "랭킹 조회", description = "랭킹 조회 API")
+    @Parameter(name = "memberId", description = "랭킹 조회자 memberId")
+    public ResponseEntity<?> getRank(@PathVariable Integer memberId){
+        return ResponseFactory.success("랭킹 조회 완료", memberService.getRank(memberId));
+    }
+
+
     @GetMapping("/nickname/{nickname}")
     @Operation(summary = "닉네임 중복 체크", description = "맴버 닉네임 중복 체크 API")
     @Parameter(name = "nickname", description = "중복 체크 할 닉네임")
