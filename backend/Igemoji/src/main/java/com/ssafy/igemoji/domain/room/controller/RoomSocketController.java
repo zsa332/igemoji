@@ -43,8 +43,12 @@ public class RoomSocketController {
 
     /* 채팅 소켓 */
     @MessageMapping("/room/chat")
-    public void socketChat(ChatRequestDto chatRequestDto) {
+    public void roomChat(ChatRequestDto chatRequestDto) {
+        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chatRequestDto.getRoomId(), roomSocketService.sendChat(chatRequestDto, MessageType.ROOM_CHAT));
+    }
 
-        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chatRequestDto.getRoomId(), roomSocketService.roomChat(chatRequestDto));
+    @MessageMapping("/watch/chat")
+    public void watchChat(ChatRequestDto chatRequestDto) {
+        simpMessageSendingOperations.convertAndSend("/topic/room/"+ chatRequestDto.getRoomId(), roomSocketService.sendChat(chatRequestDto, MessageType.WATCH_CHAT));
     }
 }

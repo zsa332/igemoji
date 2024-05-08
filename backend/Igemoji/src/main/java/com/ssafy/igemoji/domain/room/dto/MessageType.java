@@ -6,5 +6,6 @@ public enum MessageType {
     GAME_PROGRESS, // 게임 진행
     CHANGE_SET, // 방 세팅 변경
     GAME_CHAT,
+    WATCH_CHAT,
     ROOM_CHAT
 }

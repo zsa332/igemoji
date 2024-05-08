@@ -44,7 +44,7 @@ public class RoomSocketService {
 
         sessionMap.put(sessionId, member.getId());
 
-        return RoomInfoDto.toDto(room, member.getNickname(), MessageType.ENTER_SUCCESS);
+        return RoomInfoDto.toDto(room, member.getId(),member.getNickname(), MessageType.ENTER_SUCCESS);
     }
 
     @Transactional
@@ -69,7 +69,7 @@ public class RoomSocketService {
 
         sessionMap.remove(sessionId); // 퇴장한 맴버 session 제거
 
-        return RoomInfoDto.toDto(room, member.getNickname(), MessageType.LEAVE_ROOM);
+        return RoomInfoDto.toDto(room, member.getId(), member.getNickname(), MessageType.LEAVE_ROOM);
     }
 
     @Transactional
@@ -81,17 +81,17 @@ public class RoomSocketService {
         room.updateQuestionNum(updateQuestionRequestDto.getQuestionNum());
         roomRepository.save(room);
 
-        return RoomInfoDto.toDto(room, "system", MessageType.CHANGE_SET);
+        return RoomInfoDto.toDto(room, 0, "system", MessageType.CHANGE_SET);
     }
 
-    public ChatResponseDto roomChat(ChatRequestDto chatRequestDto) {
+    public ChatResponseDto sendChat(ChatRequestDto chatRequestDto, MessageType message) {
         Member member = memberRepository.findById(chatRequestDto.getMemberId()).orElseThrow(
                 () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
 
         return ChatResponseDto.builder()
                 .roomId(chatRequestDto.getRoomId())
-                .message(MessageType.ROOM_CHAT)
+                .message(message)
                 .nickname(member.getNickname())
                 .content(chatRequestDto.getContent())
                 .build();
