@@ -4,6 +4,7 @@ import com.ssafy.igemoji.domain.member.Member;
 import com.ssafy.igemoji.domain.member.exception.MemberErrorCode;
 import com.ssafy.igemoji.domain.member.repository.MemberRepository;
 import com.ssafy.igemoji.domain.room.Room;
+import com.ssafy.igemoji.domain.room.dto.EnterRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomResponseDto;
 import com.ssafy.igemoji.domain.room.exception.RoomErrorCode;
@@ -52,12 +53,24 @@ public class RoomService {
     }
 
     /* 방 입장 가능 여부 조회 */
-    public String roomEnter(int roomId) {
-        Room room = roomRepository.findById(roomId)
+    @Transactional
+    public String roomEnter(EnterRequestDto enterRequestDto) {
+        Room room = roomRepository.findById(enterRequestDto.getRoomId())
                 .orElseThrow(() -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM));
 
         if(room.getMemberList().size() >= room.getMaxNum())
             throw new CustomException(RoomErrorCode.ROOM_FULL);
+
+        if(!room.getPassword().isEmpty() && !room.getPassword().equals(enterRequestDto.getPassword()))
+            throw new CustomException(RoomErrorCode.PASSWORD_INCORRECT);
+
+        Member member = memberRepository.findById(enterRequestDto.getMemberId())
+                .orElseThrow(() -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER));
+
+        member.enterRoom(room); // 맴버가 입장한 방 입력
+        memberRepository.save(member);
+        room.getMemberList().add(member); // 현재 방 맴버 추가
+        roomRepository.save(room);
 
         return "ENTER_POSSIBLE";
     }
