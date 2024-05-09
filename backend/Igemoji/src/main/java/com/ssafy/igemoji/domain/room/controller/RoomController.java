@@ -41,7 +41,7 @@ public class RoomController {
 
     /* 방 입장 가능 조회 */
     @PostMapping("/enter")
-    @Operation(summary = "방 입장 가능 조회", description = "해당 방에 입장 가능한지 체크")
+    @Operation(summary = "방 입장", description = "해당 방에 입장")
     public ResponseEntity<?> enterRoom(@RequestBody EnterRequestDto enterRequestDto){
         return ResponseFactory.success(roomService.roomEnter(enterRequestDto));
     }
