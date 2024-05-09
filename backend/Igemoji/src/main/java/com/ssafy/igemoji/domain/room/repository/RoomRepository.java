@@ -20,6 +20,8 @@ public interface RoomRepository extends JpaRepository<Room, Integer> {
             "FROM Room r " +
             "LEFT JOIN r.memberList m " +
             "GROUP BY r.id " +
-            "HAVING COUNT(m) < r.maxNum ")
+            "HAVING COUNT(m) < r.maxNum " +
+            "ORDER BY r.createDate ASC " +
+            "LIMIT 1")
     Optional<Room> findFastRoom();
 }
