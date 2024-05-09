@@ -43,6 +43,8 @@ public class RoomController {
     @GetMapping("/enter")
     @Operation(summary = "방 입장 가능 조회", description = "해당 방에 입장 가능한지 체크")
     @Parameter(name = "roomId", description = "입장 하려는 방")
+    @Parameter(name = "memberId", description = "입장 하려는 맴버")
+    @Parameter(name = "password", description = "방 비밀번호")
     public ResponseEntity<?> enterRoom(@RequestBody EnterRequestDto enterRequestDto){
         return ResponseFactory.success(roomService.roomEnter(enterRequestDto));
     }
