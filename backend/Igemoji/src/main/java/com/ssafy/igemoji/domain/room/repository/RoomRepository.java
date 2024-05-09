@@ -10,9 +10,16 @@ import java.util.Optional;
 
 public interface RoomRepository extends JpaRepository<Room, Integer> {
 
-    @Query("select r " +
-            "from Room r " +
-            "join fetch r.memberList " +
-            "where r.id = :roomId")
+    @Query("SELECT r " +
+            "FROM Room r " +
+            "JOIN FETCH r.memberList " +
+            "WHERE r.id = :roomId")
     Optional<Room> findByIdByFetch(Integer roomId);
+
+    @Query("SELECT r " +
+            "FROM Room r " +
+            "LEFT JOIN r.memberList m " +
+            "GROUP BY r.id " +
+            "HAVING COUNT(m) < r.maxNum ")
+    Optional<Room> findFastRoom();
 }
