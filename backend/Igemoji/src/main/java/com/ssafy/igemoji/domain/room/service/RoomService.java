@@ -32,6 +32,9 @@ public class RoomService {
         Member member = memberRepository.findById(requestDto.getMemberId())
                 .orElseThrow(() -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER));
 
+        if(member.getRoom() != null)
+            throw new CustomException(MemberErrorCode.USER_ALREADY_HAS_ROOM);
+
         Room room = Room.builder()
                 .title(requestDto.getTitle())
                 .isPublic(requestDto.getIsPublic())
