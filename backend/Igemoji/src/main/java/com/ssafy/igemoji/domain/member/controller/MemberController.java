@@ -20,8 +20,6 @@ public class MemberController {
 
     @PostMapping("/nickname")
     @Operation(summary = "닉네임 수정", description = "맴버 닉네임 수정 API")
-    @Parameter(name = "memberId", description = "닉네임 수정 대상의 memberId")
-    @Parameter(name = "nickname", description = "수정할 닉네임")
     public ResponseEntity<?> updateNickname(@RequestBody NicknameRequestDto requestDto){
         memberService.updateNickname(requestDto);
         return ResponseFactory.success("닉네임 수정 완료");
@@ -29,7 +27,6 @@ public class MemberController {
 
     @GetMapping("/rank/{memberId}")
     @Operation(summary = "랭킹 조회", description = "랭킹 조회 API")
-    @Parameter(name = "memberId", description = "랭킹 조회자 memberId")
     public ResponseEntity<?> getRank(@PathVariable Integer memberId){
         return ResponseFactory.success("랭킹 조회 완료", memberService.getRank(memberId));
     }
@@ -37,7 +34,6 @@ public class MemberController {
 
     @GetMapping("/nickname/{nickname}")
     @Operation(summary = "닉네임 중복 체크", description = "맴버 닉네임 중복 체크 API")
-    @Parameter(name = "nickname", description = "중복 체크 할 닉네임")
     public ResponseEntity<?> exitNickname(@PathVariable String nickname){
         return ResponseFactory.success("중복 체크 완료", memberService.exitNickname(nickname));
     }
