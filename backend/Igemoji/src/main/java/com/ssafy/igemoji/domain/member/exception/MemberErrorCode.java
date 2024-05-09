@@ -8,7 +8,8 @@ public enum MemberErrorCode implements ErrorCode {
     INVALID_ID_TOKEN("유효하지 않는 idToken 입니다","MEM_002",400),
     EXPIRED_ID_TOKEN("만료된 idToken 입니다","MEM_003",400),
     NOT_SUPPORT_OAUTH_PROVIDER("지원하지 않는 OAuth 인증 방식입니다.","MEM_004",409),
-    NICKNAME_DUPLICATE("중복된 닉네임입니다.","MEM_005",409);
+    NICKNAME_DUPLICATE("중복된 닉네임입니다.","MEM_005",409),
+    USER_ALREADY_HAS_ROOM("이미 방을 생성한 유저입니다", "MEM_006", 403);
 
     private final String message;
     private final String errorCode;
