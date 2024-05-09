@@ -63,6 +63,7 @@ public class GameSocketService {
             System.out.println(movieList);
             // 참가자 뽑아오기
             Map<Integer, PlayerResponseDto> playerMap  = new HashMap<>();
+            System.out.println(room.getMemberList());
             room.getMemberList().forEach(member -> {
                 PlayerResponseDto dto = PlayerResponseDto.toDto(member);
                 playerMap.put(dto.getMemberId(), dto);
