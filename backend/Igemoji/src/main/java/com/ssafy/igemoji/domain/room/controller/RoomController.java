@@ -37,4 +37,28 @@ public class RoomController {
     public List<RoomResponseDto> findAllRoom(@RequestParam int pageNum){
         return roomService.findAllRoom(pageNum);
     }
+
+    /* 방 입장 가능 조회 */
+    @GetMapping("/enter/{roomId}")
+    @Operation(summary = "방 입장 가능 조회", description = "해당 방에 입장 가능한지 체크")
+    @Parameter(name = "roomId", description = "입장 하려는 방")
+    public ResponseEntity<?> enterRoom(@PathVariable int roomId){
+        return ResponseFactory.success(roomService.roomEnter(roomId));
+    }
+
+    /* 방 찾기 */
+    @GetMapping("/{roomId}")
+    @Operation(summary = "방 찾기", description = "방번호를 이용해 방찾기")
+    @Parameter(name = "roomId", description = "찾으려는 방 번호")
+    public ResponseEntity<?> searchRoom(@PathVariable int roomId){
+        return ResponseFactory.success("방찾기 완료", roomService.searchRoom(roomId));
+    }
+
+    /* 빠른 입장 방찾기 */
+    @GetMapping("/fast")
+    @Operation(summary = "빠른 입장 방 조회", description = "빠른 입장을 하기 위한 방 찾기")
+    public ResponseEntity<?> fastRoom(){
+        return ResponseFactory.success("빠른 입장 조회 완료", roomService.fastRoom());
+    }
+
 }

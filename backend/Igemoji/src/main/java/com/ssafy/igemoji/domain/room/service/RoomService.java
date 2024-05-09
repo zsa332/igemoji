@@ -28,9 +28,8 @@ public class RoomService {
     /* 방 생성 */
     @Transactional
     public RoomResponseDto createRoom(RoomRequestDto requestDto){
-        Member member = memberRepository.findById(requestDto.getMemberId()).orElseThrow(
-                () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
-        );
+        Member member = memberRepository.findById(requestDto.getMemberId())
+                .orElseThrow(() -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER));
 
         Room room = Room.builder()
                 .title(requestDto.getTitle())
@@ -52,4 +51,33 @@ public class RoomService {
         return roomRepository.findAll(PageRequest.of(pageNum, 10)).getContent().stream().map(RoomResponseDto::toDto).toList();
     }
 
+    /* 방 입장 가능 여부 조회 */
+    public String roomEnter(int roomId) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM));
+
+        if(room.getMemberList().size() >= room.getMaxNum())
+            throw new CustomException(RoomErrorCode.ROOM_FULL);
+
+        return "ENTER_POSSIBLE";
+    }
+
+    /* 방 찾기 */
+    public RoomResponseDto searchRoom(int roomId) {
+        Room room = roomRepository.findById(roomId)
+                .orElseThrow(() -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM));
+
+        if(room.getMemberList().size() >= room.getMaxNum())
+            throw new CustomException(RoomErrorCode.ROOM_FULL);
+
+        return RoomResponseDto.toDto(room);
+    }
+
+    /* 빠른 입장 방 찾기 */
+    public RoomResponseDto fastRoom() {
+        Room room = roomRepository.findFastRoom()
+                .orElseThrow(() -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM));
+
+        return RoomResponseDto.toDto(room);
+    }
 }
