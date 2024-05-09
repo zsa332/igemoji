@@ -18,7 +18,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/nickname")
+    @PutMapping("/nickname")
     @Operation(summary = "닉네임 수정", description = "맴버 닉네임 수정 API")
     public ResponseEntity<?> updateNickname(@RequestBody NicknameRequestDto requestDto){
         memberService.updateNickname(requestDto);
