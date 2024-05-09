@@ -1,5 +1,6 @@
 package com.ssafy.igemoji.domain.room.controller;
 
+import com.ssafy.igemoji.domain.room.dto.EnterRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomRequestDto;
 import com.ssafy.igemoji.domain.room.dto.RoomResponseDto;
 import com.ssafy.igemoji.domain.room.service.RoomService;
@@ -39,11 +40,11 @@ public class RoomController {
     }
 
     /* 방 입장 가능 조회 */
-    @GetMapping("/enter/{roomId}")
+    @GetMapping("/enter")
     @Operation(summary = "방 입장 가능 조회", description = "해당 방에 입장 가능한지 체크")
     @Parameter(name = "roomId", description = "입장 하려는 방")
-    public ResponseEntity<?> enterRoom(@PathVariable int roomId){
-        return ResponseFactory.success(roomService.roomEnter(roomId));
+    public ResponseEntity<?> enterRoom(@RequestBody EnterRequestDto enterRequestDto){
+        return ResponseFactory.success(roomService.roomEnter(enterRequestDto));
     }
 
     /* 방 찾기 */

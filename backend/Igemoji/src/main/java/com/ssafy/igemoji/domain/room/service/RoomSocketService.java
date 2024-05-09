@@ -24,7 +24,6 @@ public class RoomSocketService {
     private static final Map<String, Integer> sessionMap = new HashMap<>();
 
     /* 방 입장 */
-    @Transactional
     public RoomInfoDto enterRoom(RoomEnterRequestDto roomEnterRequestDto, String sessionId){
         Room room = roomRepository.findById(roomEnterRequestDto.getRoomId()).orElseThrow(
                 () -> new CustomException(RoomErrorCode.NOT_FOUND_ROOM)
@@ -36,11 +35,6 @@ public class RoomSocketService {
         Member member = memberRepository.findById(roomEnterRequestDto.getMemberId()).orElseThrow(
                 () -> new CustomException(MemberErrorCode.NOT_FOUND_MEMBER)
         );
-
-        member.enterRoom(room); // 맴버가 입장한 방 입력
-        memberRepository.save(member);
-        room.getMemberList().add(member); // 현재 방 맴버 추가
-        roomRepository.save(room);
 
         sessionMap.put(sessionId, member.getId());
 
