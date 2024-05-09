@@ -42,9 +42,6 @@ public class RoomController {
     /* 방 입장 가능 조회 */
     @GetMapping("/enter")
     @Operation(summary = "방 입장 가능 조회", description = "해당 방에 입장 가능한지 체크")
-    @Parameter(name = "roomId", description = "입장 하려는 방")
-    @Parameter(name = "memberId", description = "입장 하려는 맴버")
-    @Parameter(name = "password", description = "방 비밀번호")
     public ResponseEntity<?> enterRoom(@RequestBody EnterRequestDto enterRequestDto){
         return ResponseFactory.success(roomService.roomEnter(enterRequestDto));
     }
@@ -52,7 +49,6 @@ public class RoomController {
     /* 방 찾기 */
     @GetMapping("/{roomId}")
     @Operation(summary = "방 찾기", description = "방번호를 이용해 방찾기")
-    @Parameter(name = "roomId", description = "찾으려는 방 번호")
     public ResponseEntity<?> searchRoom(@PathVariable int roomId){
         return ResponseFactory.success("방찾기 완료", roomService.searchRoom(roomId));
     }
