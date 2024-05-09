@@ -16,7 +16,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CustomException.class)
     public ResponseEntity<?> handleCustomException(CustomException e){
-        e.printStackTrace();
         logging(e);
         return ResponseFactory.fail(e.getErrorCode());
     }
@@ -42,7 +41,6 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception e){
         logging(e);
-        e.printStackTrace();
         ErrorCode serverError = CommonErrorCode.SERVER_ERROR;
         return ResponseFactory.fail(e.getMessage(), serverError.getErrorCode(),serverError.getStatusCode());
     }
