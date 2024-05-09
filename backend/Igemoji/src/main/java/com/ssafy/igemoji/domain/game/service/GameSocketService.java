@@ -125,9 +125,9 @@ public class GameSocketService {
         MovieResponseDto movie = gameInfo.getMovieList().get(gameInfo.getRemainingRound());
         ProceedingResponseDto proceedingResponseDto = new ProceedingResponseDto(remainingTime, GameStatus.PROCEEDING, MessageType.GAME_PROGRESS, movie.getEmoji());
 
-        if(remainingTime <= 30) // 첫번째 힌트 명대사 send
+        if(remainingTime <= 50) // 첫번째 힌트 명대사 send
             proceedingResponseDto.updateHint1(movie.getLine());
-        if(remainingTime <= 15) // 두번째 힌트 초성 send
+        if(remainingTime <= 30) // 두번째 힌트 초성 send
             proceedingResponseDto.updateHint2(movie.getChosung());
 
         sendMessage(proceedingResponseDto, roomId);
