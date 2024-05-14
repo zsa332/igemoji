@@ -96,7 +96,9 @@
 ## 📌 소셜 로그인
 
 - Kakao 로그인을 통해 로그인할 수 있다.
-
+<br/>
+<img src="/uploads/f9b93e101e51cfa12c0df6b6df1e0022/소셜로그인.png"  width="200" height="400"/>
+<img src="/uploads/f0bcf129b49614018dd22d41e714d858/닉네임설정.png"  width="200" height="400"/>
 
 <br/>
 <br/>
@@ -105,6 +107,8 @@
 
 - 방 만들기를 통해 새로운 방을 만들 수 있다.
 - 빠른 입장과 방 찾기를 통해 특정 방에 입장할 수 있다.
+<img src="/uploads/afa9deaec07c10213d93f41f3e1ac672/방목록1.png"  width="200" height="400"/>
+<img src="/uploads/da77eddbd3d8c98dd6ca23dcc8dadf90/방목록2.png"  width="200" height="400"/>
 
 
 <br/>
@@ -121,7 +125,12 @@
 ## 📌 퀴즈 풀이
 - 이모티콘을 기반으로 퀴즈 풀이를 할 수 있다.
 - 정답/오답 유사도 확인을 통해 퀴즈 풀이를 할 수 있다.
-
+<img src="/uploads/fd2ffd975ed6f0b251126314544e2bbc/게임1.png"  width="200" height="400"/>
+<img src="/uploads/e18200f7655992c8cae927f81aa851ad/게임2.png"  width="200" height="400"/>
+<img src="/uploads/4f1a1338e1ce41fbc9390946a2cfcd59/게임3.png"  width="200" height="400"/>
+<br/>
+<img src="/uploads/61a42bd66d6512a246e120ef77a98eba/게임4.png"  width="200" height="400"/>
+<img src="/uploads/0dcf6aa42dc4b60caa8e0c811a449f12/게임5.png"  width="200" height="400"/>
 
 <br/>
 <br/>
@@ -130,7 +139,7 @@
 ## 📌 랭킹
 - 퀴즈 풀이를 통해 점수를 획득하여 랭킹을 확인 할 수 있다.
 - 랭킹을 통해 보상(칭호)를 획득할 수 있다.
-
+<img src="/uploads/525008fd5935309983354ceb54e138f2/랭킹.PNG"  width="200" height="400"/>
 
 <br/>
 <br/>
