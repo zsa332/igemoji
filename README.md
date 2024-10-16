@@ -1,4 +1,4 @@
-![icon](/uploads/dcf78ce15f95ef16be2440fe426252e3/icon.png)
+![image](https://github.com/user-attachments/assets/5bccfc3b-7a0e-4c52-8b13-1c92a0dfe3be)
 
 <br/>
 <br/>
@@ -97,8 +97,9 @@
 
 - Kakao 로그인을 통해 로그인할 수 있다.
 <br/>
-<img src="/uploads/f9b93e101e51cfa12c0df6b6df1e0022/소셜로그인.png"  width="200" height="400"/>
-<img src="/uploads/f0bcf129b49614018dd22d41e714d858/닉네임설정.png"  width="200" height="400"/>
+
+<img src="https://github.com/user-attachments/assets/5efa70a2-3edc-437d-bccc-18c73cdeda17" alt="description" width="200" height="400" />
+<img src="https://github.com/user-attachments/assets/8a607ec1-2eba-4cd8-8a45-e7a19be9d93b" alt="description" width="200" height="400" />
 
 <br/>
 <br/>
@@ -107,8 +108,9 @@
 
 - 방 만들기를 통해 새로운 방을 만들 수 있다.
 - 빠른 입장과 방 찾기를 통해 특정 방에 입장할 수 있다.
-<img src="/uploads/afa9deaec07c10213d93f41f3e1ac672/방목록1.png"  width="200" height="400"/>
-<img src="/uploads/da77eddbd3d8c98dd6ca23dcc8dadf90/방목록2.png"  width="200" height="400"/>
+
+<img src="https://github.com/user-attachments/assets/44cd6490-d81c-4e81-99b4-8de05a5cce28"  width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/1b6edb61-b773-432a-9e22-a7f37027f300"  width="200" height="400"/>
 
 
 <br/>
@@ -125,12 +127,14 @@
 ## 📌 퀴즈 풀이
 - 이모티콘을 기반으로 퀴즈 풀이를 할 수 있다.
 - 정답/오답 유사도 확인을 통해 퀴즈 풀이를 할 수 있다.
-<img src="/uploads/fd2ffd975ed6f0b251126314544e2bbc/게임1.png"  width="200" height="400"/>
-<img src="/uploads/e18200f7655992c8cae927f81aa851ad/게임2.png"  width="200" height="400"/>
-<img src="/uploads/4f1a1338e1ce41fbc9390946a2cfcd59/게임3.png"  width="200" height="400"/>
+
+
+<img src="https://github.com/user-attachments/assets/4f1b7392-41ed-4973-acb3-e299171ff901"  width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/bee00c09-1db5-44fc-a848-b4d4ae403f27"  width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/42ce1eb9-81c8-4ef9-ac5f-c2390ba61898"  width="200" height="400"/>
 <br/>
-<img src="/uploads/61a42bd66d6512a246e120ef77a98eba/게임4.png"  width="200" height="400"/>
-<img src="/uploads/0dcf6aa42dc4b60caa8e0c811a449f12/게임5.png"  width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/91b6512d-e858-44aa-a834-c70fd8d62db8"  width="200" height="400"/>
+<img src="https://github.com/user-attachments/assets/ac921ff9-b4c4-437e-9ca9-0f1fffa3de0a"  width="200" height="400"/>
 
 <br/>
 <br/>
@@ -139,7 +143,8 @@
 ## 📌 랭킹
 - 퀴즈 풀이를 통해 점수를 획득하여 랭킹을 확인 할 수 있다.
 - 랭킹을 통해 보상(칭호)를 획득할 수 있다.
-<img src="/uploads/525008fd5935309983354ceb54e138f2/랭킹.PNG"  width="200" height="400"/>
+
+<img src="https://github.com/user-attachments/assets/b3ee50d5-74ab-4cc3-8995-21ace2ca4a28"  width="200" height="400"/>
 
 <br/>
 <br/>
@@ -155,8 +160,6 @@
     <tr>
      <td align="center">
         <a href="">
-            <img src="/uploads/3bc1344b852b3a75261913c6d6afaae4/image__4_.png" width="100px;" alt="장진희"/>
-            <br />
             <sub><b>장진희</b></sub>
         </a>
         <br />
@@ -164,8 +167,6 @@
       </td>
       <td align="center">
         <a href="">
-            <img src="/uploads/02ad2e5abb8eaac9636b40bb2af462f9/image__5_.png" width="100px;" alt="김대원"/>
-            <br />
             <sub><b>김대원</b></sub>
         </a>
         <br />
@@ -174,8 +175,6 @@
       <br/>
       <td align="center">
         <a href="">
-            <img src="/uploads/befdaab5a462e6c0dee4176425234e07/image__8_.png" width="100px;" alt="서성원"/>
-            <br />
             <sub><b>서성원</b></sub>
         </a>
         <br />
@@ -184,8 +183,6 @@
       <br/>
       <td align="center">
         <a href="">
-            <img src="/uploads/d8ce6d3526e37d0fc34bcaf7b680c636/image__7_.png" width="100px;" alt="이재종"/>
-            <br />
             <sub><b>이재종</b></sub>
         </a>
         <br />
@@ -193,9 +190,6 @@
       </td>
       <td align="center">
         <a href="">
-          <img src="/uploads/b5eaa209c03644c0ab321088cae25374/image__9_.png"
-              width="100px;" alt="홍지은" />
-          <br />
           <sub><b>홍지은</b></sub>
           </a>
           <br />
@@ -213,19 +207,23 @@
 <br/>
 
 ## 💎 [ERD 다이어그램](https://www.erdcloud.com/d/mxr2vvpQ5aT5didjn)
-![erd](/uploads/5574086ba05f750f38b73a58f2f9d268/erd.PNG)
+![erd](https://github.com/user-attachments/assets/442c1595-388d-4419-9fe3-2d672f09071d)
+
 
 <br/>
 
 ## 📘 [API 명세서](https://www.notion.so/4277a8ca911f4c5981af235c96a97cbf?v=9927ae74573b43cfbe8b4a297efa2ca3)
-![api](/uploads/f1f559a9fbb92a8d106e87a28de07b84/api.PNG)
+![api](https://github.com/user-attachments/assets/a1c99bcb-6b32-41d8-9b2b-a5a3906bed9e)
+
+
 
 
 <br/>
 
 ## 🍏 [와이어프레임](https://www.figma.com/file/yv3A9FvVzDS3EEzAMxaaaX/Figma?type=design&node-id=0-1&mode=design&t=UMa1BhRujeKLNxJW-0)
-![figma](/uploads/4c948dea8b3fcbfea933becb3e8ce38c/figma.PNG)
-![figmadark](/uploads/32acb5761500baaed2d21d105efc27b3/figmadark.PNG)
+![figma](https://github.com/user-attachments/assets/97c65e2b-78b0-439c-bda6-3f2e44db0722)
+
+![figmadark](https://github.com/user-attachments/assets/662b7d25-185c-414f-acd9-2aa0fd784d83)
 
 
 <br/>
