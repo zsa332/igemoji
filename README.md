@@ -204,7 +204,8 @@
 
 ## ⚙ 기술 아키텍쳐
 
-## [Service Archtecture]<img width="1004" height="622" alt="image" src="https://github.com/user-attachments/assets/ee4daf3f-e9f7-43cc-8295-d849e30750de" />
+## Service Archtecture
+<img width="1004" height="622" alt="image" src="https://github.com/user-attachments/assets/ee4daf3f-e9f7-43cc-8295-d849e30750de" />
 
 
 <br/>
